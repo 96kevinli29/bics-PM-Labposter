@@ -47,11 +47,11 @@
     .row {
       display: flex;
       gap: 1rem;
-      align-items: center;
+      align-items: flex-end; /* Changed to align input boxes better */
       flex-wrap: wrap;
       margin-bottom: 1rem;
     }
-    .row > div { flex: 1; min-width: 180px; }
+    .row > div { flex: 1; min-width: 140px; }
 
     /* Form Elements */
     label {
@@ -61,7 +61,7 @@
       font-weight: 600;
       color: #374151;
     }
-    select, input[type="text"], button {
+    select, input[type="text"], input[type="password"], button {
       width: 100%;
       padding: 0.6rem;
       font-size: 0.95rem;
@@ -120,7 +120,7 @@
       border-radius: 8px;
       font-size: 0.9rem;
       margin-top: 1rem;
-      display: none; /* Hidden by default */
+      display: none; 
     }
     .info-box a { color: #1e40af; font-weight: 600; text-decoration: underline;}
 
@@ -159,7 +159,7 @@
     <h1>Poster Topic Registration</h1>
     <p class="muted">
       Group Poster Session · Bachelor in Computer Science · University of Luxembourg<br />
-      <strong>Instructions:</strong> Each group (Total 12) must register <strong>one</strong> topic. The group leader is responsible for this registration.
+      <strong>Instructions:</strong> Select your group number and a topic. You must set a <strong>PIN</strong> to protect your registration. You will need this PIN to modify your choice later.
     </p>
 
     <div class="card">
@@ -168,15 +168,19 @@
       <div class="grid">
         <div>
           <div class="row">
-            <div>
-              <label for="groupSelect">Group Number</label>
+            <div style="flex: 0 0 120px;">
+              <label for="groupSelect">Group #</label>
               <select id="groupSelect">
-                <option value="">Select group...</option>
+                <option value="">Select...</option>
               </select>
             </div>
             <div>
-              <label for="leaderInput">Group Leader (Full Name)</label>
-              <input type="text" id="leaderInput" placeholder="e.g. Marc Smith" />
+              <label for="leaderInput">Group Leader</label>
+              <input type="text" id="leaderInput" placeholder="Full Name" />
+            </div>
+            <div style="flex: 0 0 100px;">
+              <label for="pinInput">PIN (4-digit)</label>
+              <input type="password" id="pinInput" placeholder="1234" maxlength="6" />
             </div>
           </div>
 
@@ -207,7 +211,7 @@
             </div>
           </div>
 
-          <button id="confirmBtn">Confirm Registration</button>
+          <button id="confirmBtn">Confirm / Update Registration</button>
           <div id="message" class="message"></div>
         </div>
 
@@ -221,12 +225,12 @@
     </div>
 
     <div class="card" style="margin-top:1.5rem;">
-      <div class="row" style="justify-content: space-between; margin-bottom: 0.5rem;">
+      <div class="row" style="justify-content: space-between; margin-bottom: 0.5rem; align-items: center;">
         <h2 style="margin-bottom:0;">Current Registrations</h2>
         <button id="resetBtn" class="secondary" type="button">Reset All (Admin)</button>
       </div>
       <p class="muted">
-        Topics listed here are already taken. Custom topics generally require approval.
+        Topics listed here are already taken. To change your group's topic, enter your Group # and PIN above.
       </p>
       <table>
         <thead>
@@ -246,170 +250,39 @@
   <script>
     // --- Configuration -------------------------------------------------------
     const GROUP_COUNT = 12;
-    const STORAGE_KEY = "uni_poster_assignments_v3"; // Version bumped
+    const STORAGE_KEY = "uni_poster_assignments_v4"; // Version bumped for schema change
+    const ADMIN_PASSWORD = "admin"; // SET YOUR ADMIN PASSWORD HERE
 
-    // --- Data Source (Expanded List) -----------------------------------------
+    // --- Data Source (Same as before) -----------------------------------------
     const topics = [
-      // --- Basic / Foundational ---
-      {
-        id: "dl-basics",
-        label: "Deep Learning Fundamentals",
-        level: "easy",
-        description: "Core concepts of Neural Networks (CNNs, MLPs) for standard classification tasks.",
-        example: "Handwritten digit classification (MNIST) using simple CNNs."
-      },
-      {
-        id: "nlp-sentiment",
-        label: "NLP: Sentiment Analysis",
-        level: "easy",
-        description: "Processing text to determine emotion or opinion (positive/negative/neutral).",
-        example: "Movie review classifier using RNNs or Transformers."
-      },
-      {
-        id: "cv-classification",
-        label: "CV: Image Classification",
-        level: "easy",
-        description: "Assigning labels to images (e.g., Cat vs Dog, X-Ray disease detection).",
-        example: "Classifying plants or animals using Transfer Learning (ResNet)."
-      },
-      {
-        id: "recommender",
-        label: "Recommender Systems",
-        level: "easy",
-        description: "Algorithms that suggest items to users (movies, products, music).",
-        example: "Collaborative filtering for movie recommendations."
-      },
-      
-      // --- Medium Difficulty ---
-      {
-        id: "cv-detection",
-        label: "CV: Object Detection",
-        level: "medium",
-        description: "Locating and identifying multiple objects within an image.",
-        example: "Traffic sign detection using YOLO."
-      },
-      {
-        id: "nlp-chatbot",
-        label: "NLP: Chatbots & Q&A",
-        level: "medium",
-        description: "Systems that can answer questions or hold simple conversations.",
-        example: "Building a FAQ bot using RAG (Retrieval-Augmented Generation)."
-      },
-      {
-        id: "time-series",
-        label: "Time Series Forecasting",
-        level: "medium",
-        description: "Predicting future values based on past time-sequenced data.",
-        example: "Stock price or weather prediction using LSTM/GRU."
-      },
-      {
-        id: "ai-games",
-        label: "AI for Games",
-        level: "medium",
-        description: "Creating agents that can play games or control NPCs.",
-        example: "Training an agent to play Super Mario using Reinforcement Learning."
-      },
-      {
-        id: "ai-health",
-        label: "AI in Healthcare",
-        level: "medium",
-        description: "Applying ML to medical diagnostics, imaging, or records.",
-        example: "Tumor segmentation in MRI scans."
-      },
-      {
-        id: "ai-finance",
-        label: "AI in FinTech",
-        level: "medium",
-        description: "Fraud detection, credit scoring, or algorithmic trading.",
-        example: "Detecting credit card fraud with Anomaly Detection."
-      },
-      {
-        id: "cybersec",
-        label: "AI for Cybersecurity",
-        level: "medium",
-        description: "Using ML to detect network attacks, phishing, or malware.",
-        example: "Email phishing detection using Natural Language Processing."
-      },
-      {
-        id: "xai",
-        label: "Explainable AI (XAI)",
-        level: "medium",
-        description: "Techniques to make 'black box' AI models interpretable to humans.",
-        example: "Using SHAP/LIME to explain why a loan was rejected."
-      },
-      {
-        id: "audio-ai",
-        label: "Audio & Speech Processing",
-        level: "medium",
-        description: "Analyzing audio signals for recognition or classification.",
-        example: "Speech command recognition or music genre classification."
-      },
-      {
-        id: "ethics",
-        label: "AI Ethics, Bias & Fairness",
-        level: "medium",
-        description: "Studying and mitigating bias in datasets and models.",
-        example: "Demonstrating and fixing gender bias in hiring algorithms."
-      },
-
-      // --- Advanced ---
-      {
-        id: "gen-ai",
-        label: "Generative AI (Images/Text)",
-        level: "advanced",
-        description: "Models that create new content. Includes GANs, Diffusion models, and LLMs.",
-        example: "Image generation with Stable Diffusion or text generation with GPT."
-      },
-      {
-        id: "gnn",
-        label: "Graph Neural Networks (GNN)",
-        level: "advanced",
-        description: "Deep learning on graph-structured data (social networks, molecules).",
-        example: "Predicting chemical properties of molecules."
-      },
-      {
-        id: "autonomous",
-        label: "Autonomous Vehicles / Robotics",
-        level: "advanced",
-        description: "Perception, planning, and control systems for robots.",
-        example: "Lane keeping and obstacle avoidance simulation."
-      },
-      {
-        id: "federated",
-        label: "Federated Learning",
-        level: "advanced",
-        description: "Training models across decentralized devices preserving privacy.",
-        example: "Collaborative learning on mobile devices without data sharing."
-      },
-      {
-        id: "multi-modal",
-        label: "Multi-modal Learning",
-        level: "advanced",
-        description: "Learning from multiple types of data (e.g., Image + Text) simultaneously.",
-        example: "Visual Question Answering (VQA) systems."
-      },
-      {
-        id: "edge-ai",
-        label: "Edge AI / TinyML",
-        level: "advanced",
-        description: "Optimizing and running AI models on hardware with limited resources.",
-        example: "Real-time keyword spotting on a Raspberry Pi."
-      },
-
-      // --- Custom ---
-      {
-        id: "custom",
-        label: "Other / Propose a custom topic",
-        level: "custom",
-        description: "<strong>Requires Approval:</strong> Do you have a specific research interest not listed here? Please contact TA Hongyang Li.",
-        example: "Your specific approved research title."
-      }
+      { id: "dl-basics", label: "Deep Learning Fundamentals", level: "easy", description: "Core concepts of Neural Networks (CNNs, MLPs) for standard classification tasks.", example: "Handwritten digit classification (MNIST) using simple CNNs." },
+      { id: "nlp-sentiment", label: "NLP: Sentiment Analysis", level: "easy", description: "Processing text to determine emotion or opinion (positive/negative/neutral).", example: "Movie review classifier using RNNs or Transformers." },
+      { id: "cv-classification", label: "CV: Image Classification", level: "easy", description: "Assigning labels to images (e.g., Cat vs Dog, X-Ray disease detection).", example: "Classifying plants or animals using Transfer Learning (ResNet)." },
+      { id: "recommender", label: "Recommender Systems", level: "easy", description: "Algorithms that suggest items to users (movies, products, music).", example: "Collaborative filtering for movie recommendations." },
+      { id: "cv-detection", label: "CV: Object Detection", level: "medium", description: "Locating and identifying multiple objects within an image.", example: "Traffic sign detection using YOLO." },
+      { id: "nlp-chatbot", label: "NLP: Chatbots & Q&A", level: "medium", description: "Systems that can answer questions or hold simple conversations.", example: "Building a FAQ bot using RAG (Retrieval-Augmented Generation)." },
+      { id: "time-series", label: "Time Series Forecasting", level: "medium", description: "Predicting future values based on past time-sequenced data.", example: "Stock price or weather prediction using LSTM/GRU." },
+      { id: "ai-games", label: "AI for Games", level: "medium", description: "Creating agents that can play games or control NPCs.", example: "Training an agent to play Super Mario using Reinforcement Learning." },
+      { id: "ai-health", label: "AI in Healthcare", level: "medium", description: "Applying ML to medical diagnostics, imaging, or records.", example: "Tumor segmentation in MRI scans." },
+      { id: "ai-finance", label: "AI in FinTech", level: "medium", description: "Fraud detection, credit scoring, or algorithmic trading.", example: "Detecting credit card fraud with Anomaly Detection." },
+      { id: "cybersec", label: "AI for Cybersecurity", level: "medium", description: "Using ML to detect network attacks, phishing, or malware.", example: "Email phishing detection using Natural Language Processing." },
+      { id: "xai", label: "Explainable AI (XAI)", level: "medium", description: "Techniques to make 'black box' AI models interpretable to humans.", example: "Using SHAP/LIME to explain why a loan was rejected." },
+      { id: "audio-ai", label: "Audio & Speech Processing", level: "medium", description: "Analyzing audio signals for recognition or classification.", example: "Speech command recognition or music genre classification." },
+      { id: "ethics", label: "AI Ethics, Bias & Fairness", level: "medium", description: "Studying and mitigating bias in datasets and models.", example: "Demonstrating and fixing gender bias in hiring algorithms." },
+      { id: "gen-ai", label: "Generative AI (Images/Text)", level: "advanced", description: "Models that create new content. Includes GANs, Diffusion models, and LLMs.", example: "Image generation with Stable Diffusion or text generation with GPT." },
+      { id: "gnn", label: "Graph Neural Networks (GNN)", level: "advanced", description: "Deep learning on graph-structured data (social networks, molecules).", example: "Predicting chemical properties of molecules." },
+      { id: "autonomous", label: "Autonomous Vehicles / Robotics", level: "advanced", description: "Perception, planning, and control systems for robots.", example: "Lane keeping and obstacle avoidance simulation." },
+      { id: "federated", label: "Federated Learning", level: "advanced", description: "Training models across decentralized devices preserving privacy.", example: "Collaborative learning on mobile devices without data sharing." },
+      { id: "multi-modal", label: "Multi-modal Learning", level: "advanced", description: "Learning from multiple types of data (e.g., Image + Text) simultaneously.", example: "Visual Question Answering (VQA) systems." },
+      { id: "edge-ai", label: "Edge AI / TinyML", level: "advanced", description: "Optimizing and running AI models on hardware with limited resources.", example: "Real-time keyword spotting on a Raspberry Pi." },
+      { id: "custom", label: "Other / Propose a custom topic", level: "custom", description: "<strong>Requires Approval:</strong> Do you have a specific research interest not listed here? Please contact TA Hongyang Li.", example: "Your specific approved research title." }
     ];
 
     // --- DOM Elements --------------------------------------------------------
     const els = {
       group: document.getElementById("groupSelect"),
       leader: document.getElementById("leaderInput"),
+      pin: document.getElementById("pinInput"), // New
       topic: document.getElementById("topicSelect"),
       subtopic: document.getElementById("subtopicInput"),
       details: document.getElementById("topicDetails"),
@@ -444,6 +317,7 @@
     // --- Rendering -----------------------------------------------------------
     function init() {
       // 1. Fill Groups
+      els.group.innerHTML = '<option value="">Select...</option>'; // Reset
       for (let i = 1; i <= GROUP_COUNT; i++) {
         const opt = document.createElement("option");
         opt.value = i;
@@ -456,18 +330,8 @@
     }
 
     function getLevelBadge(level) {
-      const classes = {
-        easy: "level-easy",
-        medium: "level-medium",
-        advanced: "level-advanced",
-        custom: "level-custom"
-      };
-      const titles = {
-        easy: "Easy",
-        medium: "Medium",
-        advanced: "Advanced",
-        custom: "Approval Required"
-      };
+      const classes = { easy: "level-easy", medium: "level-medium", advanced: "level-advanced", custom: "level-custom" };
+      const titles = { easy: "Easy", medium: "Medium", advanced: "Advanced", custom: "Approval Required" };
       return `<span class="badge ${classes[level] || ''}">${titles[level] || level}</span>`;
     }
 
@@ -476,7 +340,7 @@
       const currentGroup = Number(els.group.value);
       const myAssignment = currentGroup ? getGroupAssignment(currentGroup) : null;
       
-      const currentSelection = els.topic.value; 
+      const currentTopicSelection = els.topic.value; 
 
       els.topic.innerHTML = '<option value="">Choose a topic area...</option>';
 
@@ -488,7 +352,6 @@
         const isTaken = assignedMap.has(t.id);
         const takenByMe = myAssignment && myAssignment.topicId === t.id;
 
-        // "Custom" can be selected by multiple groups (conceptually), standard ones are exclusive
         if (t.id !== 'custom' && isTaken) {
           label += ` (Taken by Group ${assignedMap.get(t.id)})`;
           if (!takenByMe) opt.disabled = true;
@@ -498,17 +361,27 @@
         els.topic.appendChild(opt);
       });
 
+      // Update Form State based on Group selection
       if (myAssignment) {
+        // Pre-fill fields if group is already registered
         els.topic.value = myAssignment.topicId;
         els.subtopic.value = myAssignment.subtopic || "";
         els.leader.value = myAssignment.leader || "";
+        els.confirm.textContent = "Update Registration";
+        // Do NOT pre-fill PIN (security)
+        els.pinInput.placeholder = "Enter PIN to edit";
         updateDetails(myAssignment.topicId);
       } else {
-        els.topic.value = currentSelection; 
-        if (!currentSelection) {
-            els.leader.value = "";
-            els.subtopic.value = "";
-        }
+        // Clear fields if group is new
+        if(currentTopicSelection) els.topic.value = currentTopicSelection; // Keep topic if just switching groups but not assigned
+        else els.topic.value = "";
+        
+        els.leader.value = "";
+        els.subtopic.value = "";
+        els.pin.value = "";
+        els.pin.placeholder = "Set new PIN";
+        els.confirm.textContent = "Confirm Registration";
+        if(!currentTopicSelection) updateDetails("");
       }
       
       updateDetails(els.topic.value);
@@ -517,12 +390,8 @@
     function updateDetails(topicId) {
       const topic = topics.find(t => t.id === topicId);
       
-      // Handle Custom Alert visibility
-      if (topicId === 'custom') {
-        els.customAlert.style.display = "block";
-      } else {
-        els.customAlert.style.display = "none";
-      }
+      if (topicId === 'custom') els.customAlert.style.display = "block";
+      else els.customAlert.style.display = "none";
 
       if (!topic) {
         els.details.innerHTML = '<p class="muted">Select a topic to see details.</p>';
@@ -530,97 +399,4 @@
       }
 
       els.details.innerHTML = `
-        <h4 style="margin-bottom:0.5rem;">${topic.label} ${getLevelBadge(topic.level)}</h4>
-        <p>${topic.description}</p>
-        <p><strong>Example:</strong> ${topic.example}</p>
-      `;
-    }
-
-    function renderTable() {
-      els.tbody.innerHTML = "";
-      if (assignments.length === 0) {
-        els.tbody.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center;">No registrations yet.</td></tr>';
-        return;
-      }
-
-      const sorted = [...assignments].sort((a, b) => a.group - b.group);
-
-      sorted.forEach(a => {
-        const topic = topics.find(t => t.id === a.topicId);
-        const tr = document.createElement("tr");
-        
-        tr.innerHTML = `
-          <td><strong>Group ${a.group}</strong></td>
-          <td><span class="leader-name">${a.leader || "Unknown"}</span></td>
-          <td>${topic ? topic.label : "Custom"}</td>
-          <td>${a.subtopic || "<em class='muted'>Generic</em>"}</td>
-        `;
-        els.tbody.appendChild(tr);
-      });
-    }
-
-    function showMsg(text, type) {
-      els.msg.textContent = text;
-      els.msg.className = `message ${type}`;
-      setTimeout(() => { els.msg.textContent = ""; }, 5000);
-    }
-
-    // --- Logic ---------------------------------------------------------------
-    
-    els.group.addEventListener("change", renderTopicOptions);
-    els.topic.addEventListener("change", (e) => updateDetails(e.target.value));
-
-    els.confirm.addEventListener("click", () => {
-      const group = Number(els.group.value);
-      const topicId = els.topic.value;
-      const subtopic = els.subtopic.value.trim();
-      const leader = els.leader.value.trim();
-
-      if (!group) return showMsg("Please select a Group Number.", "error");
-      if (!leader) return showMsg("Please enter the Group Leader's name.", "error");
-      if (!topicId) return showMsg("Please select a Topic.", "error");
-      
-      if (topicId === 'custom' && !subtopic) {
-        return showMsg("For custom topics, you must enter the specific Title approved by the TA.", "error");
-      }
-
-      const assignedMap = getAssignedMap();
-      const existingAssignment = getGroupAssignment(group);
-      
-      if (topicId !== 'custom' && assignedMap.has(topicId)) {
-        const ownerGroup = assignedMap.get(topicId);
-        if (ownerGroup !== group) {
-            return showMsg(`Topic already taken by Group ${ownerGroup}.`, "error");
-        }
-      }
-
-      const newEntry = { group, topicId, subtopic, leader };
-      
-      if (existingAssignment) {
-        const idx = assignments.indexOf(existingAssignment);
-        assignments.splice(idx, 1);
-      }
-      
-      assignments.push(newEntry);
-      saveData();
-      
-      renderTopicOptions();
-      renderTable();
-      showMsg(`Saved: Group ${group} (Leader: ${leader}) → ${topics.find(t=>t.id===topicId).label}`, "success");
-    });
-
-    els.reset.addEventListener("click", () => {
-      if(confirm("Are you sure you want to reset ALL registrations?")) {
-        assignments = [];
-        saveData();
-        init(); 
-        showMsg("All data reset.", "success");
-      }
-    });
-
-    // Run
-    init();
-
-  </script>
-</body>
-</html>
+        <h4 style="margin
