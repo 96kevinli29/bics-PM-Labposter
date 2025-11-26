@@ -1,32 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Poster Topic Registration · Bachelor in Computer Science · FSTM · University of Luxembourg (2025–2026)</title>
+  <title>Poster Topic Registration · Bachelor in Computer Science · FSTM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color-scheme: light;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg-color: #f5f5f8;
+      --card-bg: #ffffff;
+      --border-color: #e2e2e8;
     }
     body {
       margin: 0;
       padding: 1.5rem;
-      background: #f5f5f8;
+      background: var(--bg-color);
+      color: #1f2937;
     }
-    h1, h2, h3 {
-      margin: 0 0 0.75rem;
-    }
+    h1, h2, h3 { margin: 0 0 0.75rem; }
     .container {
       max-width: 1000px;
       margin: 0 auto;
-      background: #ffffff;
+      background: var(--card-bg);
       padding: 1.5rem;
       border-radius: 12px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.05);
     }
+    .muted { font-size: 0.85rem; color: #6b7280; line-height: 1.5; }
+    
+    /* Layout */
     .grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
-      gap: 1.25rem;
+      gap: 1.5rem;
       margin-top: 1rem;
       align-items: flex-start;
     }
@@ -34,103 +43,115 @@
       background: #fafafa;
       border-radius: 10px;
       padding: 1rem 1.2rem;
-      border: 1px solid #e2e2e8;
+      border: 1px solid var(--border-color);
     }
+    .row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .row > div { flex: 1; min-width: 180px; }
+
+    /* Form Elements */
     label {
       display: block;
       font-size: 0.9rem;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
       font-weight: 600;
+      color: #374151;
     }
     select, input[type="text"], button {
       width: 100%;
-      padding: 0.5rem 0.6rem;
+      padding: 0.6rem;
       font-size: 0.95rem;
       border-radius: 8px;
       border: 1px solid #c8c8d6;
       box-sizing: border-box;
+      transition: border-color 0.2s;
     }
-    select:disabled {
-      background: #f0f0f5;
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
     button {
       cursor: pointer;
       border: none;
-      background: #2563eb;
+      background: var(--primary);
       color: white;
       font-weight: 600;
-      margin-top: 0.6rem;
+      margin-top: 0.5rem;
+      padding: 0.75rem;
     }
-    button:hover {
-      background: #1d4ed8;
-    }
+    button:hover { background: var(--primary-hover); }
+    button:disabled { background: #9ca3af; cursor: not-allowed; }
+    
     button.secondary {
       background: #e5e7eb;
       color: #111827;
       margin-top: 0;
+      width: auto;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
     }
-    button.secondary:hover {
-      background: #d1d5db;
-    }
-    .row {
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 0.5rem;
-    }
-    .row > div {
-      flex: 1;
-      min-width: 180px;
-    }
+    button.secondary:hover { background: #d1d5db; }
+
+    /* Topic Info & Status */
     .badge {
       display: inline-flex;
-      padding: 0.1rem 0.5rem;
+      padding: 0.15rem 0.6rem;
       border-radius: 999px;
       font-size: 0.75rem;
       font-weight: 600;
       vertical-align: middle;
+      margin-left: 0.5rem;
     }
     .level-easy { background: #dcfce7; color: #166534; }
     .level-medium { background: #fef9c3; color: #854d0e; }
     .level-advanced { background: #fee2e2; color: #991b1b; }
-    .muted {
-      font-size: 0.85rem;
-      color: #6b7280;
+    .level-custom { background: #e0e7ff; color: #3730a3; }
+
+    .info-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      display: none; /* Hidden by default */
     }
+    .info-box a { color: #1e40af; font-weight: 600; }
+
+    /* Table */
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 0.75rem;
       font-size: 0.9rem;
       background: #ffffff;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
+      border: 1px solid var(--border-color);
     }
     th, td {
-      border: 1px solid #e5e7eb;
-      padding: 0.5rem 0.6rem;
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.6rem 0.8rem;
       text-align: left;
     }
-    th {
-      background: #f3f4f6;
-      font-weight: 600;
-    }
-    .taken {
-      color: #9ca3af;
-      font-style: italic;
-      font-size: 0.85rem;
-    }
-    .message {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-    }
+    th { background: #f3f4f6; font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+    .leader-name { color: var(--primary); font-weight: 500; }
+
+    /* Messages */
+    .message { margin-top: 0.8rem; font-size: 0.95rem; font-weight: 500; }
     .message.error { color: #b91c1c; }
     .message.success { color: #166534; }
+
     @media (max-width: 800px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -138,437 +159,425 @@
   <div class="container">
     <h1>Poster Topic Registration</h1>
     <p class="muted">
-     Group Poster Session · Bachelor in Computer Science · FSTM · University of Luxembourg (2025–2026)<br />
-      One representative per group should register the topic here.
+      Group Poster Session · Bachelor in Computer Science · FSTM · University of Luxembourg (2025–2026)<br />
+      <strong>Instructions:</strong> Each group must register <strong>one</strong> topic. The group leader is responsible for this registration.
     </p>
 
     <div class="card">
-      <h2>Step 1 · Choose Group and Topic</h2>
-      <p class="muted">
-        Each topic can be used by <strong>only one group</strong>. After you confirm,
-        this topic will no longer be available for other groups.
-      </p>
-
+      <h2>Step 1 · Group & Topic Selection</h2>
+      
       <div class="grid">
-        <!-- Left: Form -->
         <div>
           <div class="row">
             <div>
-              <label for="groupSelect">Group number</label>
+              <label for="groupSelect">Group Number</label>
               <select id="groupSelect">
-                <option value="">Select your group…</option>
+                <option value="">Select group...</option>
               </select>
             </div>
             <div>
-              <label for="topicSelect">Poster topic (main area)</label>
-              <select id="topicSelect">
-                <option value="">Select a topic…</option>
-              </select>
+              <label for="leaderInput">Group Leader (Full Name)</label>
+              <input type="text" id="leaderInput" placeholder="e.g. Marc Smith" />
             </div>
           </div>
 
-          <div>
-            <label for="subtopicInput">Specific subtopic / poster title (optional but recommended)</label>
+          <div style="margin-bottom: 1rem;">
+            <label for="topicSelect">Select a Main Topic</label>
+            <select id="topicSelect">
+              <option value="">Choose a topic area...</option>
+            </select>
+            
+            <div id="customTopicAlert" class="info-box">
+              <strong>Proposing a new topic?</strong><br/>
+              Please email the course coordinator at 
+              <a href="mailto:hongyang.li@uni.lu?subject=Poster Topic Proposal">professor@uni.lu</a> 
+              to verify if your topic is suitable.<br/><br/>
+              <em>If approved, enter your specific title below and confirm.</em>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <label for="subtopicInput">Specific Subtopic / Poster Title</label>
             <input
               type="text"
               id="subtopicInput"
-              placeholder="e.g. Object Detection with YOLO and DETR"
+              placeholder="e.g. Object Detection with YOLOv8"
             />
+            <div class="muted" style="margin-top:0.25rem; font-size:0.8rem;">
+              Optional for standard topics, <strong>required</strong> for custom topics.
+            </div>
           </div>
 
-          <button id="confirmBtn">Confirm Selection</button>
+          <button id="confirmBtn">Confirm Registration</button>
           <div id="message" class="message"></div>
         </div>
 
-        <!-- Right: Topic details -->
-        <div class="card">
-          <h3>Topic details</h3>
+        <div class="card" style="background: #fff; border-color:#e5e7eb;">
+          <h3>Topic Description</h3>
           <div id="topicDetails" class="muted">
-            Select a topic to see description, example subtopic, and difficulty level.
+            <p>Please select a topic from the list to see the details, difficulty level, and requirements.</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="card" style="margin-top:1.5rem;">
-      <div class="row" style="justify-content: space-between;">
-        <h2 style="margin-bottom:0;">Current registrations</h2>
-        <button id="resetBtn" class="secondary" type="button">Reset all (teacher only)</button>
+      <div class="row" style="justify-content: space-between; margin-bottom: 0.5rem;">
+        <h2 style="margin-bottom:0;">Current Registrations</h2>
+        <button id="resetBtn" class="secondary" type="button">Reset All (Admin)</button>
       </div>
       <p class="muted">
-        Check here which group has already taken which topic. Topics in the list above will be disabled once chosen.
+        Topics listed here are already taken and cannot be selected by other groups.
       </p>
       <table>
         <thead>
           <tr>
-            <th style="width:70px;">Group</th>
-            <th style="width:220px;">Main topic</th>
-            <th>Specific subtopic / poster title</th>
+            <th style="width:80px;">Group</th>
+            <th style="width:180px;">Leader</th>
+            <th>Main Topic Area</th>
+            <th>Specific Title</th>
           </tr>
         </thead>
         <tbody id="assignmentsBody">
-          <!-- Filled by JS -->
-        </tbody>
+          </tbody>
       </table>
     </div>
   </div>
 
   <script>
-    // --- Topic data ----------------------------------------------------------
+    // --- Configuration -------------------------------------------------------
+    const GROUP_COUNT = 12;
+    const STORAGE_KEY = "uni_poster_assignments_v2"; // Changed key version
+
+    // --- Data Source ---------------------------------------------------------
     const topics = [
       {
         id: "deep-learning",
-        label: "Deep Learning and Neural Networks",
+        label: "Deep Learning Fundamentals",
         level: "easy",
-        description: "Basic ideas of deep learning, focusing on convolutional or feed-forward networks.",
-        example: "Image classification with CNNs (LeNet, AlexNet, ResNet)."
+        description: "Core concepts of Neural Networks (CNNs, MLPs) for classification tasks.",
+        example: "Image classification using ResNet-50."
       },
       {
         id: "nlp",
         label: "Natural Language Processing (NLP)",
         level: "easy",
-        description: "Models that process text for classification, translation, question answering, etc.",
-        example: "Sentiment analysis with BERT or other pre-trained language models."
+        description: "Processing text data for analysis, translation, or generation.",
+        example: "Sentiment analysis on movie reviews using BERT."
       },
       {
         id: "cv",
         label: "Computer Vision",
         level: "easy",
-        description: "Techniques that allow computers to understand images or videos.",
-        example: "Object detection using YOLO and/or DETR."
+        description: "Enabling computers to identify and process images/video.",
+        example: "Real-time face mask detection."
       },
       {
         id: "xai",
-        label: "Explainable AI",
+        label: "Explainable AI (XAI)",
         level: "easy",
-        description: "Methods for explaining machine learning model predictions.",
-        example: "Using LIME or SHAP to explain decisions of a classifier."
+        description: "Making black-box models transparent and interpretable.",
+        example: "Visualizing CNN decisions with Grad-CAM."
       },
       {
         id: "ai-health",
         label: "AI in Healthcare",
         level: "medium",
-        description: "AI methods applied to medical data such as images or electronic health records.",
-        example: "Medical image segmentation for tumor detection."
+        description: "Applying ML to medical diagnostics, imaging, or records.",
+        example: "Predicting diabetes onset using patient records."
       },
       {
         id: "ai-finance",
-        label: "AI in Finance",
+        label: "AI in Finance (FinTech)",
         level: "medium",
-        description: "Machine learning models for fraud detection, credit scoring, or forecasting.",
-        example: "Fraud detection using anomaly detection methods."
+        description: "Fraud detection, stock prediction, or algorithmic trading.",
+        example: "Credit card fraud detection using Isolation Forests."
       },
       {
-        id: "ai-smart-cities",
-        label: "AI for Smart Cities",
+        id: "autonomous",
+        label: "Autonomous Systems",
         level: "medium",
-        description: "Using AI for traffic prediction, energy optimization, and urban planning.",
-        example: "Traffic flow prediction with time series or graph neural networks."
+        description: "Perception and control for self-driving cars or drones.",
+        example: "Lane line detection for autonomous driving."
       },
       {
-        id: "autonomous-vehicles",
-        label: "Autonomous Vehicles",
-        level: "medium",
-        description: "Perception and decision-making systems used for self-driving cars.",
-        example: "Perception pipeline for lane detection and object detection."
-      },
-      {
-        id: "reinforcement-learning",
+        id: "rl",
         label: "Reinforcement Learning",
         level: "medium",
-        description: "Learning by trial and error through rewards and penalties.",
-        example: "Deep Q-learning for playing simple games."
+        description: "Agents learning actions through rewards and penalties.",
+        example: "Training an agent to play Snake via Q-Learning."
       },
       {
-        id: "cybersecurity-ai",
-        label: "Cybersecurity with AI",
+        id: "cybersec",
+        label: "AI for Cybersecurity",
         level: "medium",
-        description: "Using machine learning to detect attacks, malware, or intrusions.",
-        example: "Intrusion detection using classification models on network traffic."
+        description: "Detecting network intrusions or malware with AI.",
+        example: "Phishing URL detection using Random Forest."
       },
       {
-        id: "federated-learning",
+        id: "gen-ai",
+        label: "Generative AI & LLMs",
+        level: "advanced",
+        description: "Models that generate new content (text, images, code).",
+        example: "Fine-tuning a small LLM for specific code generation."
+      },
+      {
+        id: "federated",
         label: "Federated Learning",
         level: "advanced",
-        description: "Training models across many devices without centralizing the data.",
-        example: "Federated learning for training a shared model on mobile phones."
-      },
-      {
-        id: "blockchain-ai",
-        label: "Blockchain Technology in AI",
-        level: "advanced",
-        description: "Using blockchain to secure, audit, or coordinate AI systems.",
-        example: "Managing model updates using blockchain-based logs."
+        description: "Decentralized training preserving data privacy.",
+        example: "Training on distributed client data without sharing."
       },
       {
         id: "edge-ai",
-        label: "AI for Edge Computing",
+        label: "Edge AI / IoT",
         level: "advanced",
-        description: "Running AI models on small devices with limited resources.",
-        example: "Model compression and quantization for edge devices."
+        description: "Deploying efficient models on microcontrollers/Raspberry Pi.",
+        example: "Voice command recognition on low-power devices."
       },
+      // The Custom Option
       {
-        id: "data-privacy-ai",
-        label: "Data Privacy in AI",
-        level: "advanced",
-        description: "Techniques for protecting user data in AI systems.",
-        example: "Differential privacy or anonymization in machine learning."
-      },
-      {
-        id: "quantum-ai",
-        label: "Quantum Computing and AI",
-        level: "advanced",
-        description: "Exploring how quantum computing can speed up or change AI.",
-        example: "High-level overview of quantum machine learning algorithms."
-      },
-      {
-        id: "robotics-ai",
-        label: "Robotics and AI",
-        level: "medium",
-        description: "Combining perception, planning, and control for autonomous robots.",
-        example: "Robot navigation using SLAM and reinforcement learning."
+        id: "custom",
+        label: "Other / Propose a custom topic",
+        level: "custom",
+        description: "<strong>Requires Approval:</strong> Do you have a specific research interest not listed here? Please contact the supervisor.",
+        example: "Your specific approved research title."
       }
     ];
 
-    // --- DOM elements --------------------------------------------------------
-    const groupSelect = document.getElementById("groupSelect");
-    const topicSelect = document.getElementById("topicSelect");
-    const subtopicInput = document.getElementById("subtopicInput");
-    const topicDetails = document.getElementById("topicDetails");
-    const confirmBtn = document.getElementById("confirmBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const messageEl = document.getElementById("message");
-    const assignmentsBody = document.getElementById("assignmentsBody");
+    // --- DOM Elements --------------------------------------------------------
+    const els = {
+      group: document.getElementById("groupSelect"),
+      leader: document.getElementById("leaderInput"),
+      topic: document.getElementById("topicSelect"),
+      subtopic: document.getElementById("subtopicInput"),
+      details: document.getElementById("topicDetails"),
+      customAlert: document.getElementById("customTopicAlert"),
+      confirm: document.getElementById("confirmBtn"),
+      reset: document.getElementById("resetBtn"),
+      msg: document.getElementById("message"),
+      tbody: document.getElementById("assignmentsBody")
+    };
 
-    // --- State & storage -----------------------------------------------------
-    const GROUP_COUNT = 12;
-    const STORAGE_KEY = "posterTopicAssignments_v1";
+    // --- State Management ----------------------------------------------------
+    let assignments = loadData();
 
-    let assignments = loadAssignments(); // { group: number, topicId: string, subtopic: string }[]
-
-    function loadAssignments() {
+    function loadData() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return [];
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) return parsed;
-      } catch (e) {
-        console.warn("Failed to parse assignments from storage", e);
-      }
-      return [];
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch { return []; }
     }
 
-    function saveAssignments() {
+    function saveData() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(assignments));
     }
 
-    // --- Helpers -------------------------------------------------------------
-    function levelBadge(level) {
-      if (level === "easy") {
-        return '<span class="badge level-easy">Level: Easy</span>';
-      } else if (level === "medium") {
-        return '<span class="badge level-medium">Level: Medium</span>';
-      } else {
-        return '<span class="badge level-advanced">Level: Advanced</span>';
-      }
+    function getAssignedMap() {
+      // Returns Map<TopicID, GroupNum>
+      return new Map(assignments.map(a => [a.topicId, a.group]));
+    }
+    
+    function getGroupAssignment(groupNum) {
+      return assignments.find(a => a.group === groupNum);
     }
 
-    function getAssignedTopicMap() {
-      const map = new Map();
-      for (const a of assignments) {
-        map.set(a.topicId, a.group);
-      }
-      return map;
-    }
-
-    function getAssignmentForGroup(group) {
-      return assignments.find(a => a.group === group) || null;
-    }
-
-    // --- UI rendering --------------------------------------------------------
-    function initGroups() {
-      // Fill group select 1..12
-      for (let g = 1; g <= GROUP_COUNT; g++) {
+    // --- Rendering -----------------------------------------------------------
+    function init() {
+      // 1. Fill Groups
+      for (let i = 1; i <= GROUP_COUNT; i++) {
         const opt = document.createElement("option");
-        opt.value = String(g);
-        opt.textContent = `Group ${g}`;
-        groupSelect.appendChild(opt);
+        opt.value = i;
+        opt.textContent = `Group ${i}`;
+        els.group.appendChild(opt);
       }
+      
+      renderTopicOptions();
+      renderTable();
+    }
+
+    function getLevelBadge(level) {
+      const classes = {
+        easy: "level-easy",
+        medium: "level-medium",
+        advanced: "level-advanced",
+        custom: "level-custom"
+      };
+      const titles = {
+        easy: "Level: Easy",
+        medium: "Level: Medium",
+        advanced: "Level: Advanced",
+        custom: "Approval Required"
+      };
+      return `<span class="badge ${classes[level] || ''}">${titles[level] || level}</span>`;
     }
 
     function renderTopicOptions() {
-      const assignedMap = getAssignedTopicMap();
-      const currentGroup = groupSelect.value ? Number(groupSelect.value) : null;
-      const currentGroupAssignment = currentGroup ? getAssignmentForGroup(currentGroup) : null;
+      const assignedMap = getAssignedMap();
+      const currentGroup = Number(els.group.value);
+      const myAssignment = currentGroup ? getGroupAssignment(currentGroup) : null;
+      
+      // Save current selection to restore if possible, else reset
+      const currentSelection = els.topic.value; 
 
-      // Reset options
-      topicSelect.innerHTML = "";
-      const placeholder = document.createElement("option");
-      placeholder.value = "";
-      placeholder.textContent = "Select a topic…";
-      topicSelect.appendChild(placeholder);
+      els.topic.innerHTML = '<option value="">Choose a topic area...</option>';
 
       topics.forEach(t => {
         const opt = document.createElement("option");
         opt.value = t.id;
+        
+        let label = t.label;
+        const isTaken = assignedMap.has(t.id);
+        const takenByMe = myAssignment && myAssignment.topicId === t.id;
 
-        if (assignedMap.has(t.id)) {
-          const takenBy = assignedMap.get(t.id);
-          opt.textContent = `${t.label} (taken by Group ${takenBy})`;
-
-          // If this topic is already assigned to THIS group, keep it selectable,
-          // otherwise disable.
-          if (!currentGroupAssignment || currentGroupAssignment.topicId !== t.id) {
-            opt.disabled = true;
-          }
-        } else {
-          opt.textContent = t.label;
+        // Custom topics can theoretically be taken by multiple groups if different titles,
+        // but for simplicity, let's allow "custom" to be selected multiple times 
+        // OR strictly limit it. Here we allow "custom" to be re-selected because 
+        // different groups might have different custom topics.
+        // HOWEVER, standard topics are exclusive.
+        
+        if (t.id !== 'custom' && isTaken) {
+          label += ` (Taken by Group ${assignedMap.get(t.id)})`;
+          if (!takenByMe) opt.disabled = true;
         }
 
-        topicSelect.appendChild(opt);
+        opt.textContent = label;
+        els.topic.appendChild(opt);
       });
 
-      // If current group already has an assignment, auto-select it
-      if (currentGroupAssignment) {
-        topicSelect.value = currentGroupAssignment.topicId;
-        subtopicInput.value = currentGroupAssignment.subtopic || "";
-        updateTopicDetails(currentGroupAssignment.topicId);
+      // Restore selection if valid
+      if (myAssignment) {
+        els.topic.value = myAssignment.topicId;
+        els.subtopic.value = myAssignment.subtopic || "";
+        els.leader.value = myAssignment.leader || "";
+        updateDetails(myAssignment.topicId);
       } else {
-        topicSelect.value = "";
-        subtopicInput.value = "";
-        topicDetails.innerHTML = 'Select a topic to see description, example subtopic, and difficulty level.';
+        els.topic.value = currentSelection; // keep selection if switching groups (unless invalid)
+        if (!currentSelection) {
+            els.leader.value = "";
+            els.subtopic.value = "";
+        }
       }
+      
+      // Trigger detail update to handle the "Custom" box visibility
+      updateDetails(els.topic.value);
     }
 
-    function renderAssignmentsTable() {
-      assignmentsBody.innerHTML = "";
-      if (assignments.length === 0) {
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.colSpan = 3;
-        td.className = "muted";
-        td.textContent = "No registrations yet.";
-        tr.appendChild(td);
-        assignmentsBody.appendChild(tr);
-        return;
-      }
-
-      const sorted = [...assignments].sort((a, b) => a.group - b.group);
-
-      sorted.forEach(a => {
-        const tr = document.createElement("tr");
-
-        const tdGroup = document.createElement("td");
-        tdGroup.textContent = `Group ${a.group}`;
-        tr.appendChild(tdGroup);
-
-        const topic = topics.find(t => t.id === a.topicId);
-        const tdTopic = document.createElement("td");
-        tdTopic.textContent = topic ? topic.label : a.topicId;
-        tr.appendChild(tdTopic);
-
-        const tdSub = document.createElement("td");
-        tdSub.textContent = a.subtopic || "";
-        tr.appendChild(tdSub);
-
-        assignmentsBody.appendChild(tr);
-      });
-    }
-
-    function updateTopicDetails(topicId) {
+    function updateDetails(topicId) {
       const topic = topics.find(t => t.id === topicId);
+      
+      // Handle Custom Alert visibility
+      if (topicId === 'custom') {
+        els.customAlert.style.display = "block";
+      } else {
+        els.customAlert.style.display = "none";
+      }
+
       if (!topic) {
-        topicDetails.innerHTML = 'Select a topic to see description, example subtopic, and difficulty level.';
+        els.details.innerHTML = '<p class="muted">Select a topic to see details.</p>';
         return;
       }
-      topicDetails.innerHTML = `
-        <p><strong>${topic.label}</strong> ${levelBadge(topic.level)}</p>
+
+      els.details.innerHTML = `
+        <h4 style="margin-bottom:0.5rem;">${topic.label} ${getLevelBadge(topic.level)}</h4>
         <p>${topic.description}</p>
-        <p><strong>Example subtopic:</strong><br>${topic.example}</p>
-        <p class="muted">
-          Your group should:
-          <br>· Read at least 3 related papers
-          <br>· Understand the main methods and comparisons
-          <br>· Design a clear poster based on this area
-        </p>
+        <p><strong>Example:</strong> ${topic.example}</p>
       `;
     }
 
-    function showMessage(text, type) {
-      messageEl.textContent = text;
-      messageEl.className = "message " + (type || "");
+    function renderTable() {
+      els.tbody.innerHTML = "";
+      if (assignments.length === 0) {
+        els.tbody.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center;">No registrations yet.</td></tr>';
+        return;
+      }
+
+      // Sort by group number
+      const sorted = [...assignments].sort((a, b) => a.group - b.group);
+
+      sorted.forEach(a => {
+        const topic = topics.find(t => t.id === a.topicId);
+        const tr = document.createElement("tr");
+        
+        tr.innerHTML = `
+          <td><strong>Group ${a.group}</strong></td>
+          <td><span class="leader-name">${a.leader || "Unknown"}</span></td>
+          <td>${topic ? topic.label : "Custom"}</td>
+          <td>${a.subtopic || "<em class='muted'>Generic</em>"}</td>
+        `;
+        els.tbody.appendChild(tr);
+      });
     }
 
-    // --- Event handlers ------------------------------------------------------
-    groupSelect.addEventListener("change", () => {
-      showMessage("", "");
+    function showMsg(text, type) {
+      els.msg.textContent = text;
+      els.msg.className = `message ${type}`;
+      setTimeout(() => { els.msg.textContent = ""; }, 5000);
+    }
+
+    // --- Logic ---------------------------------------------------------------
+    
+    // Watch for changes
+    els.group.addEventListener("change", renderTopicOptions);
+    els.topic.addEventListener("change", (e) => updateDetails(e.target.value));
+
+    // Confirm Action
+    els.confirm.addEventListener("click", () => {
+      const group = Number(els.group.value);
+      const topicId = els.topic.value;
+      const subtopic = els.subtopic.value.trim();
+      const leader = els.leader.value.trim();
+
+      // Validation
+      if (!group) return showMsg("Please select a Group Number.", "error");
+      if (!leader) return showMsg("Please enter the Group Leader's name.", "error");
+      if (!topicId) return showMsg("Please select a Topic.", "error");
+      
+      if (topicId === 'custom' && !subtopic) {
+        return showMsg("For custom topics, you must enter the specific Title approved by the teacher.", "error");
+      }
+
+      // Check double booking (server-side usually, but local here)
+      const assignedMap = getAssignedMap();
+      const existingAssignment = getGroupAssignment(group);
+      
+      // If topic is taken by SOMEONE ELSE (and not custom)
+      if (topicId !== 'custom' && assignedMap.has(topicId)) {
+        const ownerGroup = assignedMap.get(topicId);
+        if (ownerGroup !== group) {
+            return showMsg(`Topic already taken by Group ${ownerGroup}.`, "error");
+        }
+      }
+
+      // Save
+      const newEntry = { group, topicId, subtopic, leader };
+      
+      // Remove old entry for this group if exists
+      if (existingAssignment) {
+        const idx = assignments.indexOf(existingAssignment);
+        assignments.splice(idx, 1);
+      }
+      
+      assignments.push(newEntry);
+      saveData();
+      
       renderTopicOptions();
+      renderTable();
+      showMsg(`Success! Group ${group} registered for "${topicId === 'custom' ? subtopic : topics.find(t=>t.id===topicId).label}".`, "success");
     });
 
-    topicSelect.addEventListener("change", () => {
-      const topicId = topicSelect.value;
-      updateTopicDetails(topicId);
-      showMessage("", "");
+    // Reset Action
+    els.reset.addEventListener("click", () => {
+      if(confirm("Are you sure you want to reset ALL registrations?")) {
+        assignments = [];
+        saveData();
+        init(); // re-init to clear everything
+        showMsg("All data reset.", "success");
+      }
     });
 
-    confirmBtn.addEventListener("click", () => {
-      const groupVal = groupSelect.value;
-      const topicVal = topicSelect.value;
-      const subtopicVal = subtopicInput.value.trim();
+    // Run
+    init();
 
-      if (!groupVal) {
-        showMessage("Please select your group number.", "error");
-        return;
-      }
-      if (!topicVal) {
-        showMessage("Please select a topic.", "error");
-        return;
-      }
-
-      const group = Number(groupVal);
-      const assignedMap = getAssignedTopicMap();
-      const existingForGroup = getAssignmentForGroup(group);
-      const takenBy = assignedMap.get(topicVal);
-
-      // If topic is taken by another group, prevent
-      if (takenBy && (!existingForGroup || existingForGroup.topicId !== topicVal)) {
-        showMessage(`This topic is already taken by Group ${takenBy}. Please choose another topic.`, "error");
-        renderTopicOptions();
-        return;
-      }
-
-      // Update or add assignment
-      if (existingForGroup) {
-        existingForGroup.topicId = topicVal;
-        existingForGroup.subtopic = subtopicVal;
-      } else {
-        assignments.push({
-          group,
-          topicId: topicVal,
-          subtopic: subtopicVal
-        });
-      }
-
-      saveAssignments();
-      renderTopicOptions();
-      renderAssignmentsTable();
-      const topic = topics.find(t => t.id === topicVal);
-      showMessage(`Saved: Group ${group} → ${topic ? topic.label : topicVal}`, "success");
-    });
-
-    resetBtn.addEventListener("click", () => {
-      if (!confirm("Reset all registrations? This will clear all stored data.")) return;
-      assignments = [];
-      saveAssignments();
-      renderTopicOptions();
-      renderAssignmentsTable();
-      showMessage("All registrations have been reset.", "success");
-    });
-
-    // --- Init ---------------------------------------------------------------
-    initGroups();
-    renderTopicOptions();
-    renderAssignmentsTable();
   </script>
 </body>
-
+</html>
