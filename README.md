@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+、<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Poster Topic Registration · Bachelor in Computer Science · FSTM</title>
@@ -20,7 +19,7 @@
       background: var(--bg-color);
       color: #1f2937;
     }
-    h1, h2, h3 { margin: 0 0 0.75rem; }
+    h1, h2, h3, h4 { margin: 0 0 0.75rem; }
     .container {
       max-width: 1000px;
       margin: 0 auto;
@@ -86,7 +85,6 @@
       padding: 0.75rem;
     }
     button:hover { background: var(--primary-hover); }
-    button:disabled { background: #9ca3af; cursor: not-allowed; }
     
     button.secondary {
       background: #e5e7eb;
@@ -98,7 +96,7 @@
     }
     button.secondary:hover { background: #d1d5db; }
 
-    /* Topic Info & Status */
+    /* Badges & Info */
     .badge {
       display: inline-flex;
       padding: 0.15rem 0.6rem;
@@ -121,7 +119,7 @@
       border-radius: 8px;
       font-size: 0.9rem;
       margin-top: 1rem;
-      display: none; /* Hidden by default */
+      display: none;
     }
     .info-box a { color: #1e40af; font-weight: 600; }
 
@@ -142,7 +140,6 @@
       text-align: left;
     }
     th { background: #f3f4f6; font-weight: 600; }
-    tr:last-child td { border-bottom: none; }
     .leader-name { color: var(--primary); font-weight: 500; }
 
     /* Messages */
@@ -159,7 +156,7 @@
   <div class="container">
     <h1>Poster Topic Registration</h1>
     <p class="muted">
-      Group Poster Session · Bachelor in Computer Science · FSTM · University of Luxembourg (2025–2026)<br />
+      Group Poster Session · Bachelor in Computer Science · FSTM · University of Luxembourg<br />
       <strong>Instructions:</strong> Each group must register <strong>one</strong> topic. The group leader is responsible for this registration.
     </p>
 
@@ -185,11 +182,11 @@
             <label for="topicSelect">Select a Main Topic</label>
             <select id="topicSelect">
               <option value="">Choose a topic area...</option>
-            </select>
+              </select>
             
             <div id="customTopicAlert" class="info-box">
               <strong>Proposing a new topic?</strong><br/>
-              Please email the course coordinator at 
+              Please email the poster coordinator at 
               <a href="mailto:hongyang.li@uni.lu?subject=Poster Topic Proposal">professor@uni.lu</a> 
               to verify if your topic is suitable.<br/><br/>
               <em>If approved, enter your specific title below and confirm.</em>
@@ -201,10 +198,10 @@
             <input
               type="text"
               id="subtopicInput"
-              placeholder="e.g. Object Detection with YOLOv8"
+              placeholder="e.g. Real-time Object Detection with YOLOv8"
             />
             <div class="muted" style="margin-top:0.25rem; font-size:0.8rem;">
-              Optional for standard topics, <strong>required</strong> for custom topics.
+              Recommended for standard topics, <strong>required</strong> for custom topics.
             </div>
           </div>
 
@@ -227,7 +224,7 @@
         <button id="resetBtn" class="secondary" type="button">Reset All (Admin)</button>
       </div>
       <p class="muted">
-        Topics listed here are already taken and cannot be selected by other groups.
+        Topics listed here are already taken and cannot be selected by other groups (except Custom topics).
       </p>
       <table>
         <thead>
@@ -246,100 +243,161 @@
 
   <script>
     // --- Configuration -------------------------------------------------------
-    const GROUP_COUNT = 12;
-    const STORAGE_KEY = "uni_poster_assignments_v2"; // Changed key version
+    const GROUP_COUNT = 15; // Increased group capacity
+    const STORAGE_KEY = "uni_poster_assignments_v3"; // New key for fresh data
 
-    // --- Data Source ---------------------------------------------------------
+    // --- Extended Data Source (Grouped by Category) --------------------------
     const topics = [
+      // 1. Artificial Intelligence & ML
       {
-        id: "deep-learning",
-        label: "Deep Learning Fundamentals",
-        level: "easy",
-        description: "Core concepts of Neural Networks (CNNs, MLPs) for classification tasks.",
-        example: "Image classification using ResNet-50."
+        id: "deep-learning", category: "Artificial Intelligence", label: "Deep Learning Fundamentals", level: "easy",
+        description: "Core concepts of Neural Networks (CNNs, RNNs) for classification.",
+        example: "Image classification with ResNet."
       },
       {
-        id: "nlp",
-        label: "Natural Language Processing (NLP)",
-        level: "easy",
-        description: "Processing text data for analysis, translation, or generation.",
-        example: "Sentiment analysis on movie reviews using BERT."
+        id: "nlp", category: "Artificial Intelligence", label: "Natural Language Processing (NLP)", level: "easy",
+        description: "Processing text data for translation, sentiment, or chatbots.",
+        example: "Sentiment analysis on Twitter data."
       },
       {
-        id: "cv",
-        label: "Computer Vision",
-        level: "easy",
-        description: "Enabling computers to identify and process images/video.",
-        example: "Real-time face mask detection."
+        id: "cv", category: "Artificial Intelligence", label: "Computer Vision", level: "easy",
+        description: "Enabling computers to 'see' and interpret images/video.",
+        example: "Face mask detection using OpenCV and CNN."
       },
       {
-        id: "xai",
-        label: "Explainable AI (XAI)",
-        level: "easy",
+        id: "gen-ai", category: "Artificial Intelligence", label: "Generative AI & LLMs", level: "medium",
+        description: "Models that generate text, images, or code (GPT, Stable Diffusion).",
+        example: "Using LLMs for code generation."
+      },
+      {
+        id: "rl", category: "Artificial Intelligence", label: "Reinforcement Learning", level: "medium",
+        description: "Agents learning actions through rewards and penalties (Game AI).",
+        example: "Training an agent to play Super Mario."
+      },
+      {
+        id: "xai", category: "Artificial Intelligence", label: "Explainable AI (XAI)", level: "medium",
         description: "Making black-box models transparent and interpretable.",
-        example: "Visualizing CNN decisions with Grad-CAM."
+        example: "Visualizing model decisions with SHAP/LIME."
       },
       {
-        id: "ai-health",
-        label: "AI in Healthcare",
-        level: "medium",
-        description: "Applying ML to medical diagnostics, imaging, or records.",
-        example: "Predicting diabetes onset using patient records."
+        id: "ai-ethics", category: "Artificial Intelligence", label: "AI Ethics & Bias", level: "medium",
+        description: "Studying fairness, bias, and ethical implications of AI systems.",
+        example: "Detecting gender bias in hiring algorithms."
+      },
+
+      // 2. Systems, Cloud & IoT
+      {
+        id: "cloud-comp", category: "Systems & IoT", label: "Cloud Computing Architectures", level: "easy",
+        description: "Serverless computing, virtualization, and cloud services.",
+        example: "Comparing AWS Lambda vs. Azure Functions."
       },
       {
-        id: "ai-finance",
-        label: "AI in Finance (FinTech)",
-        level: "medium",
-        description: "Fraud detection, stock prediction, or algorithmic trading.",
-        example: "Credit card fraud detection using Isolation Forests."
+        id: "iot", category: "Systems & IoT", label: "Internet of Things (IoT)", level: "easy",
+        description: "Connecting physical devices to the internet for data collection.",
+        example: "Smart home automation system using MQTT."
       },
       {
-        id: "autonomous",
-        label: "Autonomous Systems",
-        level: "medium",
-        description: "Perception and control for self-driving cars or drones.",
-        example: "Lane line detection for autonomous driving."
+        id: "edge-ai", category: "Systems & IoT", label: "Edge AI / Embedded AI", level: "advanced",
+        description: "Running AI models on resource-constrained devices (Raspberry Pi).",
+        example: "Real-time voice recognition on a microcontroller."
       },
       {
-        id: "rl",
-        label: "Reinforcement Learning",
-        level: "medium",
-        description: "Agents learning actions through rewards and penalties.",
-        example: "Training an agent to play Snake via Q-Learning."
+        id: "green-it", category: "Systems & IoT", label: "Green IT & Sustainable Computing", level: "medium",
+        description: "Reducing energy consumption in data centers and software.",
+        example: "Optimizing code for energy efficiency."
       },
       {
-        id: "cybersec",
-        label: "AI for Cybersecurity",
-        level: "medium",
-        description: "Detecting network intrusions or malware with AI.",
-        example: "Phishing URL detection using Random Forest."
+        id: "5g-6g", category: "Systems & IoT", label: "5G/6G Networks", level: "advanced",
+        description: "Next-gen telecommunications and their impact on CS applications.",
+        example: "Low-latency applications enabled by 5G."
       },
       {
-        id: "gen-ai",
-        label: "Generative AI & LLMs",
-        level: "advanced",
-        description: "Models that generate new content (text, images, code).",
-        example: "Fine-tuning a small LLM for specific code generation."
+        id: "robotics", category: "Systems & IoT", label: "Robotics & Automation", level: "medium",
+        description: "Software for robot perception, planning, and control.",
+        example: "Path planning algorithms for autonomous rovers."
+      },
+
+      // 3. Security & Blockchain
+      {
+        id: "cybersec-net", category: "Security & Blockchain", label: "Network Security", level: "easy",
+        description: "Protecting networks from intrusions, DDoS, and malware.",
+        example: "Analyzing network traffic for intrusion detection."
       },
       {
-        id: "federated",
-        label: "Federated Learning",
-        level: "advanced",
-        description: "Decentralized training preserving data privacy.",
-        example: "Training on distributed client data without sharing."
+        id: "blockchain", category: "Security & Blockchain", label: "Blockchain & Smart Contracts", level: "medium",
+        description: "Decentralized ledgers and automated contract execution.",
+        example: "Building a voting system on Ethereum."
       },
       {
-        id: "edge-ai",
-        label: "Edge AI / IoT",
-        level: "advanced",
-        description: "Deploying efficient models on microcontrollers/Raspberry Pi.",
-        example: "Voice command recognition on low-power devices."
+        id: "cryptography", category: "Security & Blockchain", label: "Applied Cryptography", level: "advanced",
+        description: "Encryption methods, zero-knowledge proofs, and secure comms.",
+        example: "Implementing End-to-End encryption for a chat app."
       },
-      // The Custom Option
       {
-        id: "custom",
-        label: "Other / Propose a custom topic",
-        level: "custom",
+        id: "privacy-ai", category: "Security & Blockchain", label: "Privacy-Preserving AI", level: "advanced",
+        description: "Federated Learning, Differential Privacy.",
+        example: "Training models without accessing raw user data."
+      },
+
+      // 4. Software Engineering & Web
+      {
+        id: "devops", category: "Software Engineering", label: "DevOps & CI/CD", level: "medium",
+        description: "Automating software delivery and infrastructure changes.",
+        example: "Building a complete CI/CD pipeline with Docker/Jenkins."
+      },
+      {
+        id: "microservices", category: "Software Engineering", label: "Microservices Architecture", level: "medium",
+        description: "Breaking applications into small, independent services.",
+        example: "Monolith vs Microservices: A performance comparison."
+      },
+      {
+        id: "web-assembly", category: "Software Engineering", label: "WebAssembly (Wasm)", level: "advanced",
+        description: "Running high-performance code (C++, Rust) in the browser.",
+        example: "Porting a game engine to the web using Wasm."
+      },
+      {
+        id: "testing", category: "Software Engineering", label: "Software Testing & QA", level: "easy",
+        description: "Automated testing, fuzzing, and quality assurance strategies.",
+        example: "Automated UI testing with Selenium/Playwright."
+      },
+
+      // 5. Graphics & Interactive
+      {
+        id: "vr-ar", category: "Graphics & HCI", label: "VR / AR (Extended Reality)", level: "medium",
+        description: "Virtual and Augmented Reality applications and development.",
+        example: "Building an educational AR app for mobile."
+      },
+      {
+        id: "game-dev", category: "Graphics & HCI", label: "Game Development Algorithms", level: "medium",
+        description: "Physics engines, procedural generation, or game AI.",
+        example: "Procedural terrain generation using Perlin Noise."
+      },
+      {
+        id: "hci", category: "Graphics & HCI", label: "Human-Computer Interaction", level: "easy",
+        description: "Improving user experience and interface design accessibility.",
+        example: "Eye-tracking interface for accessibility."
+      },
+
+      // 6. Data & Theory
+      {
+        id: "big-data", category: "Data & Theory", label: "Big Data Analytics", level: "medium",
+        description: "Processing massive datasets (Hadoop, Spark).",
+        example: "Real-time stream processing with Apache Kafka."
+      },
+      {
+        id: "bioinformatics", category: "Data & Theory", label: "Bioinformatics", level: "advanced",
+        description: "Computational methods for analyzing biological data (DNA).",
+        example: "Sequence alignment algorithms."
+      },
+      {
+        id: "quantum", category: "Data & Theory", label: "Quantum Computing Basics", level: "advanced",
+        description: "Introduction to qubits, superposition and quantum algorithms.",
+        example: "Simulating Grover's Algorithm."
+      },
+
+      // 7. Custom
+      {
+        id: "custom", category: "Other", label: "Other / Propose a custom topic", level: "custom",
         description: "<strong>Requires Approval:</strong> Do you have a specific research interest not listed here? Please contact the supervisor.",
         example: "Your specific approved research title."
       }
@@ -373,7 +431,6 @@
     }
 
     function getAssignedMap() {
-      // Returns Map<TopicID, GroupNum>
       return new Map(assignments.map(a => [a.topicId, a.group]));
     }
     
@@ -397,16 +454,10 @@
 
     function getLevelBadge(level) {
       const classes = {
-        easy: "level-easy",
-        medium: "level-medium",
-        advanced: "level-advanced",
-        custom: "level-custom"
+        easy: "level-easy", medium: "level-medium", advanced: "level-advanced", custom: "level-custom"
       };
       const titles = {
-        easy: "Level: Easy",
-        medium: "Level: Medium",
-        advanced: "Level: Advanced",
-        custom: "Approval Required"
+        easy: "Level: Easy", medium: "Level: Medium", advanced: "Level: Advanced", custom: "Approval Required"
       };
       return `<span class="badge ${classes[level] || ''}">${titles[level] || level}</span>`;
     }
@@ -416,61 +467,63 @@
       const currentGroup = Number(els.group.value);
       const myAssignment = currentGroup ? getGroupAssignment(currentGroup) : null;
       
-      // Save current selection to restore if possible, else reset
       const currentSelection = els.topic.value; 
 
       els.topic.innerHTML = '<option value="">Choose a topic area...</option>';
 
+      // Group topics by category
+      const categories = {};
       topics.forEach(t => {
-        const opt = document.createElement("option");
-        opt.value = t.id;
-        
-        let label = t.label;
-        const isTaken = assignedMap.has(t.id);
-        const takenByMe = myAssignment && myAssignment.topicId === t.id;
-
-        // Custom topics can theoretically be taken by multiple groups if different titles,
-        // but for simplicity, let's allow "custom" to be selected multiple times 
-        // OR strictly limit it. Here we allow "custom" to be re-selected because 
-        // different groups might have different custom topics.
-        // HOWEVER, standard topics are exclusive.
-        
-        if (t.id !== 'custom' && isTaken) {
-          label += ` (Taken by Group ${assignedMap.get(t.id)})`;
-          if (!takenByMe) opt.disabled = true;
-        }
-
-        opt.textContent = label;
-        els.topic.appendChild(opt);
+        if (!categories[t.category]) categories[t.category] = [];
+        categories[t.category].push(t);
       });
 
-      // Restore selection if valid
+      // Render Optgroups
+      for (const [catName, catTopics] of Object.entries(categories)) {
+        const groupEl = document.createElement("optgroup");
+        groupEl.label = catName;
+        
+        catTopics.forEach(t => {
+            const opt = document.createElement("option");
+            opt.value = t.id;
+            
+            let label = t.label;
+            const isTaken = assignedMap.has(t.id);
+            const takenByMe = myAssignment && myAssignment.topicId === t.id;
+
+            if (t.id !== 'custom' && isTaken) {
+            label += ` (Taken by Group ${assignedMap.get(t.id)})`;
+            if (!takenByMe) opt.disabled = true;
+            }
+
+            opt.textContent = label;
+            groupEl.appendChild(opt);
+        });
+        els.topic.appendChild(groupEl);
+      }
+
+      // Restore state
       if (myAssignment) {
         els.topic.value = myAssignment.topicId;
         els.subtopic.value = myAssignment.subtopic || "";
         els.leader.value = myAssignment.leader || "";
         updateDetails(myAssignment.topicId);
       } else {
-        els.topic.value = currentSelection; // keep selection if switching groups (unless invalid)
+        els.topic.value = currentSelection;
         if (!currentSelection) {
             els.leader.value = "";
             els.subtopic.value = "";
+            els.details.innerHTML = '<p class="muted">Select a topic to see details.</p>';
         }
       }
-      
-      // Trigger detail update to handle the "Custom" box visibility
-      updateDetails(els.topic.value);
+      if (els.topic.value) updateDetails(els.topic.value);
     }
 
     function updateDetails(topicId) {
       const topic = topics.find(t => t.id === topicId);
       
-      // Handle Custom Alert visibility
-      if (topicId === 'custom') {
-        els.customAlert.style.display = "block";
-      } else {
-        els.customAlert.style.display = "none";
-      }
+      if (topicId === 'custom') els.customAlert.style.display = "block";
+      else els.customAlert.style.display = "none";
 
       if (!topic) {
         els.details.innerHTML = '<p class="muted">Select a topic to see details.</p>';
@@ -478,7 +531,8 @@
       }
 
       els.details.innerHTML = `
-        <h4 style="margin-bottom:0.5rem;">${topic.label} ${getLevelBadge(topic.level)}</h4>
+        <h4 style="margin-bottom:0.5rem;">${topic.label}</h4>
+        <div style="margin-bottom:0.5rem;">${getLevelBadge(topic.level)} <span class="badge" style="background:#f3f4f6; color:#4b5563;">${topic.category}</span></div>
         <p>${topic.description}</p>
         <p><strong>Example:</strong> ${topic.example}</p>
       `;
@@ -491,7 +545,6 @@
         return;
       }
 
-      // Sort by group number
       const sorted = [...assignments].sort((a, b) => a.group - b.group);
 
       sorted.forEach(a => {
@@ -515,32 +568,26 @@
     }
 
     // --- Logic ---------------------------------------------------------------
-    
-    // Watch for changes
     els.group.addEventListener("change", renderTopicOptions);
     els.topic.addEventListener("change", (e) => updateDetails(e.target.value));
 
-    // Confirm Action
     els.confirm.addEventListener("click", () => {
       const group = Number(els.group.value);
       const topicId = els.topic.value;
       const subtopic = els.subtopic.value.trim();
       const leader = els.leader.value.trim();
 
-      // Validation
       if (!group) return showMsg("Please select a Group Number.", "error");
       if (!leader) return showMsg("Please enter the Group Leader's name.", "error");
       if (!topicId) return showMsg("Please select a Topic.", "error");
       
       if (topicId === 'custom' && !subtopic) {
-        return showMsg("For custom topics, you must enter the specific Title approved by the teacher.", "error");
+        return showMsg("For custom topics, you must enter the specific Title.", "error");
       }
 
-      // Check double booking (server-side usually, but local here)
       const assignedMap = getAssignedMap();
       const existingAssignment = getGroupAssignment(group);
       
-      // If topic is taken by SOMEONE ELSE (and not custom)
       if (topicId !== 'custom' && assignedMap.has(topicId)) {
         const ownerGroup = assignedMap.get(topicId);
         if (ownerGroup !== group) {
@@ -548,36 +595,27 @@
         }
       }
 
-      // Save
       const newEntry = { group, topicId, subtopic, leader };
-      
-      // Remove old entry for this group if exists
-      if (existingAssignment) {
-        const idx = assignments.indexOf(existingAssignment);
-        assignments.splice(idx, 1);
-      }
+      if (existingAssignment) assignments.splice(assignments.indexOf(existingAssignment), 1);
       
       assignments.push(newEntry);
       saveData();
       
       renderTopicOptions();
       renderTable();
-      showMsg(`Success! Group ${group} registered for "${topicId === 'custom' ? subtopic : topics.find(t=>t.id===topicId).label}".`, "success");
+      showMsg(`Success! Group ${group} registered.`, "success");
     });
 
-    // Reset Action
     els.reset.addEventListener("click", () => {
-      if(confirm("Are you sure you want to reset ALL registrations?")) {
+      if(confirm("Reset ALL registrations?")) {
         assignments = [];
         saveData();
-        init(); // re-init to clear everything
+        init();
         showMsg("All data reset.", "success");
       }
     });
 
-    // Run
     init();
-
   </script>
 </body>
 </html>
