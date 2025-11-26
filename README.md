@@ -158,7 +158,7 @@
     <h1>Poster Topic Registration</h1>
     <p class="muted">
       Group Poster Session · Bachelor in Computer Science · University of Luxembourg<br />
-      <strong>Instructions:</strong> Select your group number and a topic. You must set a <strong>PIN</strong> to protect your registration. You will need this PIN to modify your choice later.
+      <strong>Instructions:</strong> Select your group number and a topic. You must set a <strong>PIN</strong> to protect your registration. You can modify your choice later by this PIN.
     </p>
 
     <div class="card">
