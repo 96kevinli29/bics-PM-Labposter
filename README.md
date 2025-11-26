@@ -199,7 +199,7 @@
       </div>
       <div class="event-item">
         <label>Location</label>
-        <div>Room MSA 4.520</div>
+        <div>Room MSA 4.520 (attendance is mandatory) </div>
       </div>
       <div class="event-item">
         <label>Amenities</label>
@@ -219,10 +219,9 @@
         </div>
         
         <div class="timeline-item final">
-          <span class="t-date">17 Dec</span>
+          <span class="t-date">9 Dec</span>
           <span class="t-desc">
-            <strong>Poster Session: AI Workshop</strong><br/>
-            @ MSA 4.520
+            <strong>Poster Submission on Moodle</strong><br/>
           </span>
         </div>
       </div>
