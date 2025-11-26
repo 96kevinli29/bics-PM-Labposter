@@ -255,7 +255,7 @@
     <div class="section-title">📝 Poster Topic Registration</div>
     <div class="card">
       <p class="muted" style="margin-top:0;">
-        <strong>Instructions:</strong> Select your group number and a topic. You must set a <strong>PIN</strong> to protect your registration. You will need this PIN to modify your choice later.
+        <strong>Instructions:</strong> Select your group number and a topic. You must set a 4-digit <strong>PIN</strong> to protect your registration. You may need to update your choice later by the PIN.
       </p>
 
       <div class="grid">
