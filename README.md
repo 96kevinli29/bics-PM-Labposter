@@ -1,6 +1,7 @@
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Technical Survey Workshop & Poster Session · Uni.lu</title>
+  <title>Poster Session: AI Technical Survey Workshop · Uni.lu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -38,10 +39,11 @@
       display: inline-block;
       margin-top: 1rem;
       background: rgba(255, 255, 255, 0.2);
-      padding: 0.3rem 1rem;
+      padding: 0.4rem 1.2rem;
       border-radius: 99px;
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
     /* --- Event Info Card --- */
@@ -91,23 +93,33 @@
     }
     .timeline {
       display: flex;
-      justify-content: space-between;
-      overflow-x: auto;
-      gap: 1rem;
+      justify-content: center; /* Center the two items */
+      gap: 2rem;
       padding-bottom: 1rem;
+      position: relative;
+    }
+    /* Simple connector line */
+    .timeline::before {
+        content: ""; position: absolute; top: 50%; left: 20%; right: 20%;
+        height: 2px; background: #e2e8f0; z-index: 0; transform: translateY(-50%);
     }
     .timeline-item {
-      flex: 1;
-      min-width: 120px;
+      flex: 0 1 300px; /* Fixed width for better look with only 2 items */
       background: white;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 0.8rem;
+      padding: 1rem;
       text-align: center;
+      z-index: 1;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     }
-    .timeline-item.active { border-color: var(--primary); background: var(--accent-bg); }
-    .t-date { font-weight: 700; color: var(--primary); display: block; margin-bottom: 0.25rem; }
-    .t-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.3; }
+    .timeline-item.active { border-color: var(--primary); background: #eff6ff; }
+    .timeline-item.final { border-color: var(--secondary); background: #f5f3ff; }
+    
+    .t-date { font-weight: 700; color: var(--primary); display: block; margin-bottom: 0.25rem; font-size: 1.1rem; }
+    .timeline-item.final .t-date { color: var(--secondary); }
+    
+    .t-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.3; }
 
     /* --- General Card & Form Styles --- */
     .card {
@@ -161,7 +173,9 @@
     @media (max-width: 800px) {
       .grid { grid-template-columns: 1fr; }
       .event-card { flex-direction: column; text-align: center; gap: 1rem; }
-      .timeline { flex-wrap: wrap; }
+      .timeline { flex-direction: column; gap: 1rem; }
+      .timeline::before { display: none; }
+      .timeline-item { width: auto; }
     }
   </style>
 </head>
@@ -170,7 +184,7 @@
   <div class="hero">
     <h1>Introduction to Project Management</h1>
     <p>Bachelor in Computer Science · University of Luxembourg</p>
-    <div class="tagline">Technical Survey Workshop & Poster Session</div>
+    <div class="tagline">Poster Session: AI Technical Survey Workshop</div>
   </div>
 
   <div class="container">
@@ -194,27 +208,22 @@
     </div>
 
     <div class="timeline-section">
-      <div class="section-title">📅 Course Schedule & Deadlines</div>
+      <div class="section-title">📅 Key Dates</div>
       <div class="timeline">
-        <div class="timeline-item">
-          <span class="t-date">28 Nov</span>
-          <span class="t-desc">Lab 10: Survey Work</span>
-        </div>
         <div class="timeline-item active">
           <span class="t-date">29 Nov</span>
-          <span class="t-desc">Topic Registration<br/>(Deadline 23:59)</span>
+          <span class="t-desc">
+            <strong>Topic Selection Deadline</strong><br/>
+            (23:59 via this website)
+          </span>
         </div>
-        <div class="timeline-item">
-          <span class="t-date">5 Dec</span>
-          <span class="t-desc">Lab 11: Poster Prep</span>
-        </div>
-        <div class="timeline-item">
-          <span class="t-date">9 Dec</span>
-          <span class="t-desc">Poster Submission<br/>(Moodle)</span>
-        </div>
-        <div class="timeline-item" style="border-color:var(--primary); background:#f0f9ff;">
+        
+        <div class="timeline-item final">
           <span class="t-date">17 Dec</span>
-          <span class="t-desc"><strong>Final Poster Session</strong><br/>@ MSA 4.520</span>
+          <span class="t-desc">
+            <strong>Poster Session: AI Workshop</strong><br/>
+            @ MSA 4.520
+          </span>
         </div>
       </div>
     </div>
@@ -301,7 +310,7 @@
   <script>
     // --- Configuration & Data ------------------------------------------------
     const GROUP_COUNT = 12;
-    const STORAGE_KEY = "uni_poster_assignments_v5"; // Updated version
+    const STORAGE_KEY = "uni_poster_assignments_v5"; 
     const ADMIN_PASSWORD = "admin"; 
 
     const topics = [
@@ -430,7 +439,6 @@
         return;
       }
       
-      // Removed badge logic to prevent "undefined" error as requested
       els.details.innerHTML = `
         <h4 style="margin-bottom:0.5rem; color:#1e3a8a;">${topic.label}</h4>
         <p style="margin-bottom:0.5rem;">${topic.description}</p>
