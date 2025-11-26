@@ -47,7 +47,7 @@
     .row {
       display: flex;
       gap: 1rem;
-      align-items: flex-end; /* Changed to align input boxes better */
+      align-items: flex-end; 
       flex-wrap: wrap;
       margin-bottom: 1rem;
     }
@@ -250,10 +250,10 @@
   <script>
     // --- Configuration -------------------------------------------------------
     const GROUP_COUNT = 12;
-    const STORAGE_KEY = "uni_poster_assignments_v4"; // Version bumped for schema change
-    const ADMIN_PASSWORD = "admin"; // SET YOUR ADMIN PASSWORD HERE
+    const STORAGE_KEY = "uni_poster_assignments_v4"; // Using v4 (Fresh Database)
+    const ADMIN_PASSWORD = "admin"; // Admin password to reset all
 
-    // --- Data Source (Same as before) -----------------------------------------
+    // --- Data Source ---------------------------------------------------------
     const topics = [
       { id: "dl-basics", label: "Deep Learning Fundamentals", level: "easy", description: "Core concepts of Neural Networks (CNNs, MLPs) for standard classification tasks.", example: "Handwritten digit classification (MNIST) using simple CNNs." },
       { id: "nlp-sentiment", label: "NLP: Sentiment Analysis", level: "easy", description: "Processing text to determine emotion or opinion (positive/negative/neutral).", example: "Movie review classifier using RNNs or Transformers." },
@@ -282,7 +282,7 @@
     const els = {
       group: document.getElementById("groupSelect"),
       leader: document.getElementById("leaderInput"),
-      pin: document.getElementById("pinInput"), // New
+      pin: document.getElementById("pinInput"), 
       topic: document.getElementById("topicSelect"),
       subtopic: document.getElementById("subtopicInput"),
       details: document.getElementById("topicDetails"),
@@ -317,7 +317,7 @@
     // --- Rendering -----------------------------------------------------------
     function init() {
       // 1. Fill Groups
-      els.group.innerHTML = '<option value="">Select...</option>'; // Reset
+      els.group.innerHTML = '<option value="">Select...</option>';
       for (let i = 1; i <= GROUP_COUNT; i++) {
         const opt = document.createElement("option");
         opt.value = i;
@@ -352,6 +352,7 @@
         const isTaken = assignedMap.has(t.id);
         const takenByMe = myAssignment && myAssignment.topicId === t.id;
 
+        // Mark taken topics
         if (t.id !== 'custom' && isTaken) {
           label += ` (Taken by Group ${assignedMap.get(t.id)})`;
           if (!takenByMe) opt.disabled = true;
@@ -363,28 +364,32 @@
 
       // Update Form State based on Group selection
       if (myAssignment) {
-        // Pre-fill fields if group is already registered
+        // Edit Mode
         els.topic.value = myAssignment.topicId;
         els.subtopic.value = myAssignment.subtopic || "";
         els.leader.value = myAssignment.leader || "";
         els.confirm.textContent = "Update Registration";
-        // Do NOT pre-fill PIN (security)
-        els.pinInput.placeholder = "Enter PIN to edit";
+        
+        // Correctly reference the pin element
+        els.pin.placeholder = "Enter PIN to edit"; 
+        
         updateDetails(myAssignment.topicId);
       } else {
-        // Clear fields if group is new
-        if(currentTopicSelection) els.topic.value = currentTopicSelection; // Keep topic if just switching groups but not assigned
-        else els.topic.value = "";
+        // New Registration Mode
+        if(currentTopicSelection && !assignedMap.has(currentTopicSelection)) {
+             els.topic.value = currentTopicSelection;
+        } else {
+             els.topic.value = "";
+        }
         
         els.leader.value = "";
         els.subtopic.value = "";
         els.pin.value = "";
         els.pin.placeholder = "Set new PIN";
         els.confirm.textContent = "Confirm Registration";
-        if(!currentTopicSelection) updateDetails("");
+        if(!els.topic.value) updateDetails("");
+        else updateDetails(els.topic.value);
       }
-      
-      updateDetails(els.topic.value);
     }
 
     function updateDetails(topicId) {
@@ -399,4 +404,115 @@
       }
 
       els.details.innerHTML = `
-        <h4 style="margin
+        <h4 style="margin-bottom:0.5rem;">${topic.label} ${getLevelBadge(topic.level)}</h4>
+        <p>${topic.description}</p>
+        <p><strong>Example:</strong> ${topic.example}</p>
+      `;
+    }
+
+    function renderTable() {
+      els.tbody.innerHTML = "";
+      if (assignments.length === 0) {
+        els.tbody.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center;">No registrations yet.</td></tr>';
+        return;
+      }
+
+      const sorted = [...assignments].sort((a, b) => a.group - b.group);
+
+      sorted.forEach(a => {
+        const topic = topics.find(t => t.id === a.topicId);
+        const tr = document.createElement("tr");
+        
+        tr.innerHTML = `
+          <td><strong>Group ${a.group}</strong></td>
+          <td><span class="leader-name">${a.leader || "Unknown"}</span></td>
+          <td>${topic ? topic.label : "Custom"}</td>
+          <td>${a.subtopic || "<em class='muted'>Generic</em>"}</td>
+        `;
+        els.tbody.appendChild(tr);
+      });
+    }
+
+    function showMsg(text, type) {
+      els.msg.textContent = text;
+      els.msg.className = `message ${type}`;
+      setTimeout(() => { els.msg.textContent = ""; }, 5000);
+    }
+
+    // --- Logic ---------------------------------------------------------------
+    
+    els.group.addEventListener("change", () => {
+        els.pin.value = ""; // Clear PIN on group switch
+        renderTopicOptions();
+    });
+    els.topic.addEventListener("change", (e) => updateDetails(e.target.value));
+
+    els.confirm.addEventListener("click", () => {
+      const group = Number(els.group.value);
+      const topicId = els.topic.value;
+      const subtopic = els.subtopic.value.trim();
+      const leader = els.leader.value.trim();
+      const pin = els.pin.value.trim();
+
+      // Basic Validation
+      if (!group) return showMsg("Please select a Group Number.", "error");
+      if (!leader) return showMsg("Please enter the Group Leader's name.", "error");
+      if (!pin || pin.length < 3) return showMsg("Please enter a PIN (at least 3 digits).", "error");
+      if (!topicId) return showMsg("Please select a Topic.", "error");
+      if (topicId === 'custom' && !subtopic) return showMsg("Custom topics require a specific Title.", "error");
+
+      const assignedMap = getAssignedMap();
+      const existingAssignment = getGroupAssignment(group);
+      
+      // Security Check: PIN Verification
+      if (existingAssignment) {
+        if (existingAssignment.pin !== pin) {
+          return showMsg(`Incorrect PIN for Group ${group}. Cannot modify registration.`, "error");
+        }
+      }
+
+      // Conflict Check: Topic taken by OTHERS?
+      if (topicId !== 'custom' && assignedMap.has(topicId)) {
+        const ownerGroup = assignedMap.get(topicId);
+        if (ownerGroup !== group) {
+           return showMsg(`Topic already taken by Group ${ownerGroup}.`, "error");
+        }
+      }
+
+      // Update Data
+      const newEntry = { group, topicId, subtopic, leader, pin }; 
+      
+      if (existingAssignment) {
+        const idx = assignments.indexOf(existingAssignment);
+        assignments.splice(idx, 1);
+        showMsg(`Registration Updated for Group ${group}.`, "success");
+      } else {
+        showMsg(`Registered: Group ${group} with PIN protection.`, "success");
+      }
+      
+      assignments.push(newEntry);
+      saveData();
+      
+      renderTopicOptions();
+      renderTable();
+      els.pin.value = "";
+    });
+
+    els.reset.addEventListener("click", () => {
+      const pwd = prompt("Enter ADMIN PASSWORD to reset all data:");
+      if (pwd === ADMIN_PASSWORD) {
+        assignments = [];
+        saveData();
+        init(); 
+        showMsg("System Reset: All registrations cleared.", "success");
+      } else if (pwd !== null) {
+        alert("Incorrect Admin Password.");
+      }
+    });
+
+    // Run
+    init();
+
+  </script>
+</body>
+</html>
