@@ -1,4 +1,3 @@
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Poster Session: AI Technical Survey Workshop · Uni.lu</title>
@@ -70,6 +69,24 @@
       padding: 0.25rem 0.75rem; border-radius: 6px; 
       font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top:0.25rem;
     }
+    
+    /* New Style for Event Footer (Awards/Format) */
+    .event-footer {
+      flex-basis: 100%;
+      width: 100%;
+      margin-top: 1rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-weight: 500;
+      color: #334155;
+    }
+    .event-footer span { display: flex; align-items: center; gap: 0.4rem; }
+    .award-text { color: #d97706; font-weight: 700; }
 
     /* --- Main Container --- */
     .container {
@@ -176,6 +193,7 @@
       .timeline { flex-direction: column; gap: 1rem; }
       .timeline::before { display: none; }
       .timeline-item { width: auto; }
+      .event-footer { flex-direction: column; gap: 0.5rem; }
     }
   </style>
 </head>
@@ -199,16 +217,22 @@
       </div>
       <div class="event-item">
         <label>Location</label>
-        <div>Room MSA 4.520 (attendance is mandatory) </div>
+        <div>Room MSA 4.520 (Mandatory)</div>
       </div>
       <div class="event-item">
         <label>Amenities</label>
         <div class="highlight-badge">☕ Coffee & Desserts</div>
       </div>
+      
+      <div class="event-footer">
+        <span>🎤 Each Group Presents</span>
+        <span>📝 Peer Grading Session</span>
+        <span class="award-text">🏆 Best Poster Awards</span>
+      </div>
     </div>
 
     <div class="timeline-section">
-      <div class="section-title">📅 Key Dates</div>
+      <div class="section-title">📅 Upcoming Deadlines</div>
       <div class="timeline">
         <div class="timeline-item active">
           <span class="t-date">29 Nov</span>
@@ -221,7 +245,8 @@
         <div class="timeline-item final">
           <span class="t-date">9 Dec</span>
           <span class="t-desc">
-            <strong>Poster Submission on Moodle</strong><br/>
+            <strong>Poster Submission Deadline</strong><br/>
+            (23:59 on Moodle)
           </span>
         </div>
       </div>
