@@ -1,4 +1,3 @@
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Poster Topic Registration · Bachelor in Computer Science</title>
@@ -461,9 +460,9 @@ const topics = [
       } else {
         // New Registration Mode
         if(currentTopicSelection && !assignedMap.has(currentTopicSelection)) {
-             els.topic.value = currentTopicSelection;
+              els.topic.value = currentTopicSelection;
         } else {
-             els.topic.value = "";
+              els.topic.value = "";
         }
         
         els.leader.value = "";
@@ -487,8 +486,9 @@ const topics = [
         return;
       }
 
+      // 修正: 删除了 ${getLevelBadge(topic.level)}，因为数据中没有定义 level，这会导致显示 "undefined"
       els.details.innerHTML = `
-        <h4 style="margin-bottom:0.5rem;">${topic.label} ${getLevelBadge(topic.level)}</h4>
+        <h4 style="margin-bottom:0.5rem;">${topic.label}</h4>
         <p>${topic.description}</p>
         <p><strong>Example:</strong> ${topic.example}</p>
       `;
