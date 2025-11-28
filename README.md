@@ -225,7 +225,7 @@
       </div>
       
       <div class="event-footer">
-        <span>🎤 Each Group Presents</span>
+        <span>🎤 Each Group Presents 10 mins</span>
         <span>📝 Peer Grading Session</span>
         <span class="award-text">🏆 Best Poster Awards</span>
       </div>
