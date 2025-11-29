@@ -183,6 +183,11 @@
     th { background: #f8fafc; font-weight: 600; color: #475569; }
     .leader-name { color: var(--primary); font-weight: 500; }
     
+    /* Grade Tag Style */
+    .grade-tag { font-size:0.75rem; padding:0.1rem 0.4rem; border-radius:4px; font-weight:bold; }
+    .grade-high { background:#dcfce7; color:#166534; }
+    .grade-med { background:#fef9c3; color:#854d0e; }
+    
     /* Delete Button Style */
     .delete-btn {
       background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5;
@@ -279,6 +284,8 @@
       </div>
     </div>
 
+    <!-- REMOVED: Grading Criteria & Reference Section -->
+
     <div class="section-title">📝 Poster Topic Registration</div>
     <div class="card">
       <div style="margin-bottom: 1rem; color: #444; font-size: 0.95rem; background:#fff1f2; border:1px solid #fecdd3; padding:1rem; border-radius:8px;">
@@ -361,7 +368,51 @@
       </table>
     </div>
 
-    <!-- Added Contact Footer -->
+    <!-- NEW SECTION: PEER REVIEW CRITERIA -->
+    <div class="section-title">👥 Grading Criteria & Reference</div>
+    <div class="card">
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:1rem; border-radius:8px; margin-bottom:1.5rem; color:#166534;">
+            <strong>Score Breakdown:</strong> The maximum Peer Score is <strong>20 Points</strong>.
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Review Category</th>
+                    <th style="width:100px;">Max Points</th>
+                    <th>Guiding Questions for Reviewers</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. Visual Appeal & Layout</strong></td>
+                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td class="muted">Is the text legible? Are the diagrams high quality? Is the layout not overcrowded?</td>
+                </tr>
+                <tr>
+                    <td><strong>2. Presentation Pitch</strong></td>
+                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td class="muted">Did the speaker explain the concept clearly? Was the talk engaging?</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Technical Accessibility</strong></td>
+                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td class="muted">Could you understand the problem and solution without being an expert?</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Q&A Interaction</strong></td>
+                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td class="muted">Did the presenters answer questions confidently and correctly?</td>
+                </tr>
+                <tr style="background-color: #f8fafc; border-top: 2px solid #e2e8f0;">
+                    <td style="text-align:right;"><strong>TOTAL</strong></td>
+                    <td style="font-weight:bold; color:#d97706;">20 pts</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- END NEW SECTION -->
+
     <div class="page-footer">
         Any questions? Contact <a href="mailto:hongyang.li@uni.lu">hongyang.li@uni.lu</a>
     </div>
