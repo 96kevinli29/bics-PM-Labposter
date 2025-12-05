@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -71,7 +72,6 @@
       font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top:0.25rem;
     }
     
-    /* New Style for Event Footer (Awards/Format) */
     .event-footer {
       flex-basis: 100%;
       width: 100%;
@@ -111,18 +111,17 @@
     }
     .timeline {
       display: flex;
-      justify-content: center; /* Center the two items */
+      justify-content: center;
       gap: 2rem;
       padding-bottom: 1rem;
       position: relative;
     }
-    /* Simple connector line */
     .timeline::before {
         content: ""; position: absolute; top: 50%; left: 20%; right: 20%;
         height: 2px; background: #e2e8f0; z-index: 0; transform: translateY(-50%);
     }
     .timeline-item {
-      flex: 0 1 300px; /* Fixed width for better look with only 2 items */
+      flex: 0 1 300px;
       background: white;
       border: 1px solid var(--border-color);
       border-radius: 8px;
@@ -136,10 +135,9 @@
     
     .t-date { font-weight: 700; color: var(--primary); display: block; margin-bottom: 0.25rem; font-size: 1.1rem; }
     .timeline-item.final .t-date { color: var(--secondary); }
-    
     .t-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.3; }
 
-    /* --- General Card & Form Styles --- */
+    /* --- Card Styles --- */
     .card {
       background: var(--card-bg);
       border-radius: 12px;
@@ -148,47 +146,22 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
       margin-bottom: 1.5rem;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 2rem;
-      align-items: flex-start;
-    }
-    
-    /* Form Inputs */
-    label { display: block; font-size: 0.9rem; margin-bottom: 0.35rem; font-weight: 600; color: #334155; }
-    select, input[type="text"], input[type="password"] {
-      width: 100%; padding: 0.6rem; font-size: 0.95rem; border-radius: 8px;
-      border: 1px solid #cbd5e1; box-sizing: border-box; transition: all 0.2s;
-    }
-    select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-    
+
     /* Buttons */
-    button {
-      cursor: pointer; border: none; background: var(--primary); color: white;
-      font-weight: 600; padding: 0.75rem 1rem; border-radius: 8px; width: 100%;
-      font-size: 0.95rem; transition: background 0.2s;
+    button.secondary { 
+      cursor: pointer; border: none; background: #f1f5f9; color: #0f172a; 
+      padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      transition: background 0.2s;
     }
-    button:hover { background: var(--primary-dark); }
-    button.secondary { background: #f1f5f9; color: #0f172a; width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem; }
     button.secondary:hover { background: #e2e8f0; }
 
-    /* Topic Details & Table */
+    /* Table */
     .muted { font-size: 0.85rem; color: var(--text-muted); }
-    .info-box { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 0.8rem; border-radius: 8px; font-size: 0.9rem; margin-top: 1rem; display: none; }
-    .info-box a { color: #1e40af; font-weight: 700; }
     
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
-    th, td { border-bottom: 1px solid var(--border-color); padding: 0.7rem 1rem; text-align: left; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
+    th, td { border-bottom: 1px solid var(--border-color); padding: 0.8rem 1rem; text-align: left; }
     th { background: #f8fafc; font-weight: 600; color: #475569; }
-    .leader-name { color: var(--primary); font-weight: 500; }
     
-    /* Grade Tag Style */
-    .grade-tag { font-size:0.75rem; padding:0.1rem 0.4rem; border-radius:4px; font-weight:bold; }
-    .grade-high { background:#dcfce7; color:#166534; }
-    .grade-med { background:#fef9c3; color:#854d0e; }
-    
-    /* Delete Button Style */
     .delete-btn {
       background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5;
       padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: bold; cursor: pointer;
@@ -196,12 +169,9 @@
     }
     .delete-btn:hover { background: #fecaca; }
 
-    /* Messages */
     .message { margin-top: 0.8rem; font-size: 0.95rem; font-weight: 500; text-align: center; }
-    .message.error { color: #dc2626; }
     .message.success { color: #16a34a; }
 
-    /* Footer Contact */
     .page-footer {
         text-align: center;
         margin-top: 3rem;
@@ -215,12 +185,9 @@
         text-decoration: none;
         font-weight: 600;
     }
-    .page-footer a:hover {
-        text-decoration: underline;
-    }
+    .page-footer a:hover { text-decoration: underline; }
 
     @media (max-width: 800px) {
-      .grid { grid-template-columns: 1fr; }
       .event-card { flex-direction: column; text-align: center; gap: 1rem; }
       .timeline { flex-direction: column; gap: 1rem; }
       .timeline::before { display: none; }
@@ -249,7 +216,7 @@
       </div>
       <div class="event-item">
         <label>Location</label>
-        <div>Room MSA 4.520 (Mandatory attendance)</div>
+        <div>Room MSA 4.520 (Mandatory)</div>
       </div>
       <div class="event-item">
         <label>Amenities</label>
@@ -284,91 +251,30 @@
       </div>
     </div>
 
-    <!-- REMOVED: Grading Criteria & Reference Section -->
-
-    <div class="section-title">📝 Poster Topic Registration</div>
-    <div class="card">
-      <div style="margin-bottom: 1rem; color: #444; font-size: 0.95rem; background:#fff1f2; border:1px solid #fecdd3; padding:1rem; border-radius:8px;">
-        <strong>Important Notice:</strong> Due to entry errors, the system was reset on Friday. All groups can re-submit their details.
-        <div style="margin-top:0.5rem; color:#333;">
-          <strong>Instructions:</strong> Please ensure your group has reached a consensus <strong>before</strong> registering. One representative per group enters the topic and leader, sets a 4-digit PIN to lock the entry, and keeps the PIN to update the selection later if needed.
-        </div>
-      </div>
-
-      <div class="grid">
-        <div>
-          <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <div style="flex: 0 0 110px;">
-              <label for="groupSelect">Group #</label>
-              <select id="groupSelect">
-                <option value="">Select...</option>
-              </select>
-            </div>
-            <div style="flex: 1; min-width: 140px;">
-              <label for="leaderInput">Group Leader</label>
-              <input type="text" id="leaderInput" placeholder="Full Name" />
-            </div>
-            <div style="flex: 0 0 100px;">
-              <label for="pinInput">PIN</label>
-              <input type="password" id="pinInput" placeholder="4-digit" maxlength="6" />
-            </div>
-          </div>
-
-          <div style="margin-bottom: 1rem;">
-            <label for="topicSelect">Select Main Topic</label>
-            <select id="topicSelect">
-              <option value="">Choose a topic area...</option>
-            </select>
-            
-            <div id="customTopicAlert" class="info-box">
-              <strong>Proposing a new topic?</strong><br/>
-              Please email the Teaching Assistant at 
-              <a href="mailto:hongyang.li@uni.lu?subject=Poster Topic Proposal">hongyang.li@uni.lu</a> 
-              to verify suitability.<br/><br/>
-              <em>If approved, enter your title below.</em>
-            </div>
-          </div>
-
-          <div style="margin-bottom: 1.5rem;">
-            <label for="subtopicInput">Specific Subtopic / Poster Title</label>
-            <input type="text" id="subtopicInput" placeholder="e.g. Object Detection with YOLOv8" />
-            <div class="muted" style="margin-top:0.3rem;">Required for Custom topics, optional for others.</div>
-          </div>
-
-          <button id="confirmBtn">Confirm Registration</button>
-          <div id="message" class="message"></div>
-        </div>
-
-        <div style="background: #f8fafc; border-radius: 8px; padding: 1.2rem; border:1px solid #e2e8f0;">
-          <h3 style="margin-top:0; font-size:1.1rem;">Topic Details</h3>
-          <div id="topicDetails" class="muted">
-            <p>Select a topic from the dropdown to see description and examples.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- REMOVED Topic Registration / Update Section -->
 
     <div class="card" style="margin-top:2rem;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-        <h3 style="margin:0;">Current Group Registrations</h3>
+        <h3 style="margin:0;">Final Group Assignments</h3>
+        <!-- Admin can still reset if needed via password -->
         <button id="resetBtn" class="secondary" type="button">Reset All (Admin Only)</button>
       </div>
       
       <table>
         <thead>
           <tr>
-            <th style="width:80px;">Group</th>
-            <th style="width:180px;">Leader</th>
-            <th>Main Topic Area</th>
-            <th>Specific Title</th>
+            <th style="width:100px;">Group</th>
+            <th style="width:250px;">Main Topic</th>
+            <th>Specific Subtopic / Title</th>
             <th style="width:60px;">Admin</th>
           </tr>
         </thead>
         <tbody id="assignmentsBody"></tbody>
       </table>
+      <div id="message" class="message"></div>
     </div>
 
-    <!-- NEW SECTION: PEER REVIEW CRITERIA -->
+    <!-- GRADING CRITERIA -->
     <div class="section-title">👥 Grading Criteria & Reference</div>
     <div class="card">
         <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:1rem; border-radius:8px; margin-bottom:1.5rem; color:#166534;">
@@ -411,7 +317,6 @@
             </tbody>
         </table>
     </div>
-    <!-- END NEW SECTION -->
 
     <div class="page-footer">
         Any questions? Contact <a href="mailto:hongyang.li@uni.lu">hongyang.li@uni.lu</a>
@@ -422,43 +327,40 @@
   <script>
     // --- Configuration & Data ------------------------------------------------
     const GROUP_COUNT = 12;
-    const STORAGE_KEY = "uni_poster_assignments_v5"; 
+    const STORAGE_KEY = "uni_poster_assignments_v7"; // Updated version
     const ADMIN_PASSWORD = "admin"; 
+
+    // Pre-defined Final List
+    const FINAL_LIST = [
+        { group: 1, topicId: "dl-basics", subtopic: "", leader: "-", pin: "1234" },
+        { group: 2, topicId: "ethics", subtopic: "Humans vs Algorithms: How Fair Do Their Decisions Feel?", leader: "-", pin: "1234" },
+        { group: 3, topicId: "nlp-chatbot", subtopic: "", leader: "-", pin: "1234" },
+        { group: 4, topicId: "cv-classification", subtopic: "", leader: "-", pin: "1234" },
+        { group: 5, topicId: "ai-games", subtopic: "", leader: "-", pin: "1234" },
+        { group: 6, topicId: "cybersec", subtopic: "AI for malware and suspicious network activity detection and analysis", leader: "-", pin: "1234" },
+        { group: 7, topicId: "dl-basics", subtopic: "Deep Learning", leader: "-", pin: "1234" },
+        { group: 8, topicId: "nlp-sentiment", subtopic: "Multilingual sentiment analysis", leader: "-", pin: "1234" },
+        { group: 9, topicId: "cybersec", subtopic: "", leader: "-", pin: "1234" },
+        { group: 10, topicId: "ai-games", subtopic: "", leader: "-", pin: "1234" },
+        { group: 11, topicId: "nlp-sentiment", subtopic: "EMOTION ANALYSIS", leader: "-", pin: "1234" },
+        { group: 12, topicId: "ai-health", subtopic: "", leader: "-", pin: "1234" }
+    ];
 
     const topics = [
       { id: "dl-basics", label: "Deep Learning Fundamentals", description: "Intro to neural networks (MLPs, CNNs).", example: "Handwritten digit recognition (MNIST)." },
       { id: "nlp-sentiment", label: "NLP: Sentiment Analysis", description: "Classifying text as positive/negative/neutral.", example: "Movie review analysis with RNNs." },
       { id: "cv-classification", label: "CV: Image Classification", description: "Identifying objects inside an image.", example: "ResNet for plant classification." },
-      { id: "recommender", label: "Recommender Systems", description: "Suggesting items based on user history.", example: "Movie recommendation via collaborative filtering." },
       { id: "cv-detection", label: "CV: Object Detection", description: "Locating multiple objects in images.", example: "Traffic sign detection with YOLO." },
       { id: "nlp-chatbot", label: "NLP: Chatbots & Q&A", description: "Systems that answer questions or chat.", example: "FAQ bot using RAG." },
-      { id: "time-series", label: "Time Series Forecasting", description: "Predicting future values from past sequences.", example: "Stock price prediction with LSTM." },
       { id: "ai-games", label: "AI for Games", description: "Agents learning strategies via interaction.", example: "RL agent playing Super Mario." },
       { id: "ai-health", label: "AI in Healthcare", description: "ML for medical diagnosis or analysis.", example: "Tumor detection in MRI scans." },
-      { id: "ai-finance", label: "AI in FinTech", description: "Fraud detection or risk scoring.", example: "Credit card fraud anomaly detection." },
       { id: "cybersec", label: "AI for Cybersecurity", description: "Detecting malicious online activity.", example: "Phishing email detection." },
-      { id: "xai", label: "Explainable AI (XAI)", description: "Making models interpretable.", example: "Explaining loan decisions with SHAP." },
-      { id: "audio-ai", label: "Audio & Speech Processing", description: "Speech recognition or sound classification.", example: "Music genre classification." },
       { id: "ethics", label: "AI Ethics & Fairness", description: "Detecting and mitigating bias in AI.", example: "Analyzing gender bias in hiring tools." },
-      { id: "gen-ai", label: "Generative AI", description: "Creating new content (text/images).", example: "Image generation with Diffusion models." },
-      { id: "gnn", label: "Graph Neural Networks", description: "Learning from graph-structured data.", example: "Molecular property prediction." },
-      { id: "autonomous", label: "Autonomous Systems", description: "Perception and planning for robots.", example: "Lane keeping simulation." },
-      { id: "federated", label: "Federated Learning", description: "Privacy-preserving distributed training.", example: "Training on mobile devices." },
-      { id: "multi-modal", label: "Multi-modal Learning", description: "Combining text, image, or audio.", example: "Visual Question Answering (VQA)." },
-      { id: "edge-ai", label: "Edge AI / TinyML", description: "AI on low-power devices.", example: "Keyword spotting on Raspberry Pi." },
-      { id: "custom", label: "Propose Custom Topic", description: "Your own idea (requires approval).", example: "Research project agreed with TA." }
+      { id: "custom", label: "Custom / Other", description: "Specific topic not listed above.", example: "Research project." }
     ];
 
     // --- DOM Elements --------------------------------------------------------
     const els = {
-      group: document.getElementById("groupSelect"),
-      leader: document.getElementById("leaderInput"),
-      pin: document.getElementById("pinInput"), 
-      topic: document.getElementById("topicSelect"),
-      subtopic: document.getElementById("subtopicInput"),
-      details: document.getElementById("topicDetails"),
-      customAlert: document.getElementById("customTopicAlert"),
-      confirm: document.getElementById("confirmBtn"),
       reset: document.getElementById("resetBtn"),
       msg: document.getElementById("message"),
       tbody: document.getElementById("assignmentsBody")
@@ -466,102 +368,32 @@
 
     // --- State & Storage -----------------------------------------------------
     let assignments = [];
+    
+    // Logic: If LocalStorage is empty or older version, use FINAL_LIST
     try {
-      assignments = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    } catch { assignments = []; }
+      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (stored && stored.length > 0) {
+          assignments = stored;
+      } else {
+          assignments = FINAL_LIST; 
+      }
+    } catch { 
+        assignments = FINAL_LIST; 
+    }
 
     function saveData() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(assignments));
     }
 
-    function getAssignedMap() {
-      return new Map(assignments.map(a => [a.topicId, a.group]));
-    }
-
-    function getGroupAssignment(groupNum) {
-      return assignments.find(a => a.group === groupNum);
-    }
-
     // --- Logic ---------------------------------------------------------------
     function init() {
-      // Populate Groups
-      els.group.innerHTML = '<option value="">Select...</option>';
-      for (let i = 1; i <= GROUP_COUNT; i++) {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = `Group ${i}`;
-        els.group.appendChild(opt);
-      }
-      renderTopicOptions();
       renderTable();
-    }
-
-    function renderTopicOptions() {
-      const assignedMap = getAssignedMap();
-      const currentGroup = Number(els.group.value);
-      const myAssignment = currentGroup ? getGroupAssignment(currentGroup) : null;
-      const currentTopicSelection = els.topic.value; 
-
-      els.topic.innerHTML = '<option value="">Choose a topic area...</option>';
-
-      topics.forEach(t => {
-        const opt = document.createElement("option");
-        opt.value = t.id;
-        let label = t.label;
-        const isTaken = assignedMap.has(t.id);
-        const takenByMe = myAssignment && myAssignment.topicId === t.id;
-
-        if (t.id !== 'custom' && isTaken) {
-          label += ` (Taken by Group ${assignedMap.get(t.id)})`;
-          if (!takenByMe) opt.disabled = true;
-        }
-        opt.textContent = label;
-        els.topic.appendChild(opt);
-      });
-
-      // Restore or Clear Form
-      if (myAssignment) {
-        els.topic.value = myAssignment.topicId;
-        els.subtopic.value = myAssignment.subtopic || "";
-        els.leader.value = myAssignment.leader || "";
-        els.confirm.textContent = "Update Registration";
-        els.pin.placeholder = "Enter PIN to edit"; 
-        updateDetails(myAssignment.topicId);
-      } else {
-        if(currentTopicSelection && !assignedMap.has(currentTopicSelection)) {
-          els.topic.value = currentTopicSelection;
-        } else {
-          els.topic.value = "";
-        }
-        els.leader.value = "";
-        els.subtopic.value = "";
-        els.pin.value = "";
-        els.pin.placeholder = "Set new PIN";
-        els.confirm.textContent = "Confirm Registration";
-        updateDetails(els.topic.value || "");
-      }
-    }
-
-    function updateDetails(topicId) {
-      const topic = topics.find(t => t.id === topicId);
-      els.customAlert.style.display = (topicId === 'custom') ? "block" : "none";
-
-      if (!topic) {
-        els.details.innerHTML = '<p class="muted">Select a topic to see details.</p>';
-        return;
-      }
-      
-      els.details.innerHTML = `
-        <h4 style="margin-bottom:0.5rem; color:#1e3a8a;">${topic.label}</h4>
-        <p style="margin-bottom:0.5rem;">${topic.description}</p>
-        <p class="muted"><strong>Example:</strong> ${topic.example}</p>
-      `;
     }
 
     function renderTable() {
       els.tbody.innerHTML = "";
       if (assignments.length === 0) {
-        els.tbody.innerHTML = '<tr><td colspan="5" class="muted" style="text-align:center; padding:1.5rem;">No registrations yet. Be the first!</td></tr>';
+        els.tbody.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center; padding:1.5rem;">No registrations yet.</td></tr>';
         return;
       }
       const sorted = [...assignments].sort((a, b) => a.group - b.group);
@@ -579,13 +411,16 @@
         delBtn.onclick = () => deleteAssignment(a.group);
         delTd.appendChild(delBtn);
 
+        // Subtopic formatting
+        let displaySub = a.subtopic;
+        if (!displaySub) displaySub = "<em class='muted'>-</em>";
+
         tr.innerHTML = `
           <td><strong>Group ${a.group}</strong></td>
-          <td><span class="leader-name">${a.leader || "Unknown"}</span></td>
           <td>${topic ? topic.label : "Custom"}</td>
-          <td>${a.subtopic || "<em class='muted'>Generic</em>"}</td>
+          <td>${displaySub}</td>
         `;
-        tr.appendChild(delTd); // Add the delete button column
+        tr.appendChild(delTd); 
         
         els.tbody.appendChild(tr);
       });
@@ -596,12 +431,7 @@
       if (pwd === ADMIN_PASSWORD) {
         assignments = assignments.filter(a => a.group !== groupNum);
         saveData();
-        renderTopicOptions(); // Refresh dropdowns to free up topic
-        renderTable(); // Refresh table
-        // Reset form if the deleted group was currently selected
-        if(Number(els.group.value) === groupNum) {
-            els.group.dispatchEvent(new Event('change'));
-        }
+        renderTable(); 
         showMsg(`Group ${groupNum} deleted.`, "success");
       } else if (pwd !== null) {
         alert("Wrong Password");
@@ -615,59 +445,13 @@
     }
 
     // --- Events --------------------------------------------------------------
-    els.group.addEventListener("change", () => {
-        els.pin.value = ""; 
-        renderTopicOptions();
-    });
-    els.topic.addEventListener("change", (e) => updateDetails(e.target.value));
-
-    els.confirm.addEventListener("click", () => {
-      const group = Number(els.group.value);
-      const topicId = els.topic.value;
-      const subtopic = els.subtopic.value.trim();
-      const leader = els.leader.value.trim();
-      const pin = els.pin.value.trim();
-
-      if (!group) return showMsg("Please select a Group Number.", "error");
-      if (!leader) return showMsg("Please enter Leader's name.", "error");
-      if (!pin || pin.length < 3) return showMsg("Please set a PIN (min 3 digits).", "error");
-      if (!topicId) return showMsg("Please select a Topic.", "error");
-      if (topicId === 'custom' && !subtopic) return showMsg("Custom topics require a specific Title.", "error");
-
-      const assignedMap = getAssignedMap();
-      const existingAssignment = getGroupAssignment(group);
-      
-      if (existingAssignment && existingAssignment.pin !== pin) {
-        return showMsg(`Incorrect PIN for Group ${group}.`, "error");
-      }
-
-      if (topicId !== 'custom' && assignedMap.has(topicId)) {
-        const ownerGroup = assignedMap.get(topicId);
-        if (ownerGroup !== group) return showMsg(`Topic taken by Group ${ownerGroup}.`, "error");
-      }
-
-      const newEntry = { group, topicId, subtopic, leader, pin }; 
-      if (existingAssignment) {
-        assignments.splice(assignments.indexOf(existingAssignment), 1);
-        showMsg("Registration Updated!", "success");
-      } else {
-        showMsg("Group Registered Successfully!", "success");
-      }
-      
-      assignments.push(newEntry);
-      saveData();
-      renderTopicOptions();
-      renderTable();
-      els.pin.value = "";
-    });
-
     els.reset.addEventListener("click", () => {
-      const pwd = prompt("WARNING: This will delete ALL groups.\nEnter Admin Password:");
+      const pwd = prompt("WARNING: This will delete ALL groups and reload defaults.\nEnter Admin Password:");
       if (pwd === ADMIN_PASSWORD) {
-        assignments = [];
+        assignments = [...FINAL_LIST]; 
         saveData();
         init(); 
-        showMsg("System Reset Complete.", "success");
+        showMsg("Reset to default list complete.", "success");
       } else if (pwd !== null) {
         alert("Wrong Password.");
       }
