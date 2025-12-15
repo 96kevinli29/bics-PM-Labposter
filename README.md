@@ -4,222 +4,392 @@
   <meta charset="UTF-8" />
   <title>Poster Session: AI Technical Survey Workshop · Uni.lu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Import Inter Font for Professional Conference Look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color-scheme: light;
-      --primary: #2563eb;
-      --primary-dark: #1e40af;
-      --secondary: #4f46e5;
-      --bg-color: #f8fafc;
-      --card-bg: #ffffff;
-      --border-color: #e2e8f0;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --accent-bg: #eff6ff;
+      /* Conference Color Palette */
+      --conf-bg: #f8fafc; /* Slate 50 */
+      --conf-surface: #ffffff;
+      --conf-primary: #0f172a; /* Slate 900 - Dark Professional */
+      --conf-accent: #3b82f6; /* Blue 500 - Tech Blue */
+      --conf-secondary: #64748b; /* Slate 500 */
+      --conf-border: #e2e8f0;
+      
+      --state-success-bg: #f0fdf4;
+      --state-success-text: #15803d;
+      --state-active-bg: #eff6ff;
+      --state-active-border: #3b82f6;
+      
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      
+      --font-main: 'Inter', system-ui, -apple-system, sans-serif;
     }
     
     body {
       margin: 0;
       padding: 0;
-      background: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.5;
+      background: var(--conf-bg);
+      color: #334155;
+      font-family: var(--font-main);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
     }
 
-    /* --- Hero & Header Section --- */
+    /* --- Navigation / Top Bar Placeholder --- */
+    .top-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      width: 100%;
+    }
+
+    /* --- Hero Section: Modern Conference Style --- */
     .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      background-color: var(--conf-primary);
       color: white;
-      padding: 3rem 1.5rem;
+      padding: 4rem 1.5rem 6rem; /* Extra padding bottom for overlap */
       text-align: center;
-    }
-    .hero h1 { margin: 0; font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; }
-    .hero p { margin: 0.5rem 0 0; font-size: 1.1rem; opacity: 0.9; }
-    .hero .tagline {
-      display: inline-block;
-      margin-top: 1rem;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 0.4rem 1.2rem;
-      border-radius: 99px;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    /* --- Event Info Card --- */
-    .event-card {
-      background: white;
-      max-width: 900px;
-      margin: -2rem auto 2rem;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: space-around;
-      align-items: center;
-      border: 1px solid var(--border-color);
-    }
-    .event-item { text-align: center; flex: 1; min-width: 180px; }
-    .event-item label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-weight: 700; margin-bottom: 0.25rem; }
-    .event-item div { font-size: 1.1rem; font-weight: 600; color: var(--primary-dark); }
-    .highlight-badge { 
-      background: #dbeafe; color: #1e40af; 
-      padding: 0.25rem 0.75rem; border-radius: 6px; 
-      font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top:0.25rem;
+      background-image: radial-gradient(#334155 1px, transparent 1px);
+      background-size: 32px 32px;
     }
     
-    .event-footer {
-      flex-basis: 100%;
-      width: 100%;
-      margin-top: 1rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--border-color);
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      font-weight: 500;
-      color: #334155;
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
-    .event-footer span { display: flex; align-items: center; gap: 0.4rem; }
-    .award-text { color: #d97706; font-weight: 700; }
+
+    .hero h1 { 
+      margin: 0; 
+      font-size: 2.5rem; 
+      font-weight: 800; 
+      letter-spacing: -0.03em; 
+      line-height: 1.2;
+      background: linear-gradient(to right, #fff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero p { 
+      margin: 1rem 0 0; 
+      font-size: 1.15rem; 
+      color: #94a3b8; 
+      font-weight: 400; 
+    }
+    
+    .hero .tagline {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #e2e8f0;
+    }
 
     /* --- Main Container --- */
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 0 1.5rem 3rem;
+      padding: 0 1.5rem 4rem;
+      position: relative;
+      z-index: 10;
     }
 
-    /* --- Timeline Section --- */
-    .timeline-section {
-      margin-bottom: 2.5rem;
+    /* --- Event Info Card (Overlapping Hero) --- */
+    .event-card {
+      background: var(--conf-surface);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      margin-top: -3.5rem; /* Overlap effect */
+      margin-bottom: 3rem;
+      border: 1px solid var(--conf-border);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      align-items: start;
     }
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-main);
+
+    .event-item { 
+      text-align: left; 
+      padding-left: 1rem;
+      border-left: 3px solid var(--conf-border);
     }
-    .timeline {
+    
+    .event-item label { 
+      display: block; 
+      font-size: 0.7rem; 
+      text-transform: uppercase; 
+      letter-spacing: 0.1em; 
+      color: var(--conf-secondary); 
+      font-weight: 700; 
+      margin-bottom: 0.4rem; 
+    }
+    
+    .event-item div { 
+      font-size: 1.05rem; 
+      font-weight: 600; 
+      color: var(--conf-primary); 
+    }
+    
+    .highlight-badge { 
+      background: #f0f9ff; 
+      color: #0369a1; 
+      padding: 0.25rem 0.6rem; 
+      border-radius: 4px; 
+      font-size: 0.85rem; 
+      font-weight: 600; 
+      display: inline-block; 
+      border: 1px solid #bae6fd;
+    }
+    
+    .event-footer {
+      grid-column: 1 / -1;
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--conf-border);
       display: flex;
       justify-content: center;
       gap: 2rem;
-      padding-bottom: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #475569;
+    }
+    .event-footer span { display: flex; align-items: center; gap: 0.5rem; }
+    .award-text { color: #d97706; font-weight: 700; background: #fffbeb; padding: 2px 8px; border-radius: 4px; border: 1px solid #fcd34d;}
+
+    /* --- Section Titles --- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--conf-primary);
       position: relative;
     }
-    .timeline::before {
-        content: ""; position: absolute; top: 50%; left: 20%; right: 20%;
-        height: 2px; background: #e2e8f0; z-index: 0; transform: translateY(-50%);
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--conf-border);
+      margin-left: 1rem;
+    }
+
+    /* --- Timeline --- */
+    .timeline-section { margin-bottom: 3.5rem; }
+    .timeline {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
     .timeline-item {
-      flex: 0 1 300px;
+      flex: 1;
+      min-width: 280px;
       background: white;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--conf-border);
       border-radius: 8px;
-      padding: 1rem;
-      text-align: center;
-      z-index: 1;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      padding: 1.25rem;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .timeline-item.active { border-color: var(--primary); background: #eff6ff; }
-    .timeline-item.final { border-color: var(--secondary); background: #f5f3ff; }
+    .timeline-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .timeline-item.active { 
+      border-color: var(--conf-accent); 
+      background: linear-gradient(to bottom right, #fff, #eff6ff);
+    }
+    .timeline-item.active::before {
+      content: "Current Phase";
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      background: var(--conf-accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 99px;
+      text-transform: uppercase;
+    }
     
-    .t-date { font-weight: 700; color: var(--primary); display: block; margin-bottom: 0.25rem; font-size: 1.1rem; }
-    .timeline-item.final .t-date { color: var(--secondary); }
-    .t-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.3; }
+    .timeline-item.final { border-left: 4px solid #8b5cf6; }
+    
+    .t-date { 
+      font-weight: 800; 
+      color: var(--conf-primary); 
+      display: block; 
+      margin-bottom: 0.5rem; 
+      font-size: 1.25rem; 
+      letter-spacing: -0.02em;
+    }
+    .final .t-date { color: #7c3aed; }
+    .t-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; }
 
-    /* --- Card Styles --- */
+    /* --- Card & Table Styles --- */
     .card {
-      background: var(--card-bg);
-      border-radius: 12px;
+      background: var(--conf-surface);
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--conf-border);
+      padding: 0; /* Table fills card */
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    .card-header {
       padding: 1.5rem;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--conf-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
     }
+    
+    .card-header h3 { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--conf-primary); }
 
-    /* Buttons */
+    /* Button */
     button.secondary { 
-      cursor: pointer; border: none; background: #f1f5f9; color: #0f172a; 
-      padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
-      transition: background 0.2s;
+      cursor: pointer; border: 1px solid #cbd5e1; background: white; color: #475569; 
+      padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;
+      transition: all 0.2s;
+      font-family: var(--font-main);
     }
-    button.secondary:hover { background: #e2e8f0; }
+    button.secondary:hover { border-color: #94a3b8; color: #1e293b; background: #f1f5f9; }
 
     /* Table */
-    .muted { font-size: 0.85rem; color: var(--text-muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th { 
+      background: #fff; 
+      text-transform: uppercase; 
+      font-size: 0.75rem; 
+      font-weight: 700; 
+      letter-spacing: 0.05em; 
+      color: #64748b; 
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-bottom: 2px solid var(--conf-border);
+    }
+    td { 
+      padding: 1rem 1.5rem; 
+      border-bottom: 1px solid var(--conf-border); 
+      color: #334155;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
     
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
-    th, td { border-bottom: 1px solid var(--border-color); padding: 0.8rem 1rem; text-align: left; }
-    th { background: #f8fafc; font-weight: 600; color: #475569; }
+    .muted { font-size: 0.85rem; color: #94a3b8; font-style: italic; }
     
     .delete-btn {
-      background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5;
-      padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: bold; cursor: pointer;
-      font-size: 0.9rem; width: auto; display: inline-block;
+      background: transparent; color: #ef4444; border: 1px solid #fecaca;
+      width: 24px; height: 24px; border-radius: 4px; 
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.2rem; line-height: 1;
+      transition: background 0.2s;
     }
-    .delete-btn:hover { background: #fecaca; }
+    .delete-btn:hover { background: #fee2e2; }
 
-    .message { margin-top: 0.8rem; font-size: 0.95rem; font-weight: 500; text-align: center; }
-    .message.success { color: #16a34a; }
+    .message { padding: 1rem; font-size: 0.9rem; font-weight: 500; text-align: center; }
+    .message.success { background-color: #f0fdf4; color: #166534; border-top: 1px solid #bbf7d0; }
 
+    /* --- Grading Section --- */
+    .grading-info {
+      background: #fdfce7; 
+      border: 1px solid #fef08a; 
+      padding: 1rem 1.5rem; 
+      border-radius: 6px; 
+      margin-bottom: 1.5rem; 
+      color: #854d0e;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .points-badge {
+      font-weight: 700;
+      color: var(--conf-accent);
+      background: #eff6ff;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+    }
+
+    /* --- Footer --- */
     .page-footer {
-        text-align: center;
-        margin-top: 3rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e2e8f0;
-        color: var(--text-muted);
-        font-size: 0.9rem;
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--conf-border);
+      color: var(--conf-secondary);
+      font-size: 0.9rem;
     }
     .page-footer a {
-        color: var(--primary);
-        text-decoration: none;
-        font-weight: 600;
+      color: var(--conf-accent);
+      text-decoration: none;
+      font-weight: 600;
     }
     .page-footer a:hover { text-decoration: underline; }
 
-    @media (max-width: 800px) {
-      .event-card { flex-direction: column; text-align: center; gap: 1rem; }
-      .timeline { flex-direction: column; gap: 1rem; }
-      .timeline::before { display: none; }
-      .timeline-item { width: auto; }
-      .event-footer { flex-direction: column; gap: 0.5rem; }
+    @media (max-width: 700px) {
+      .hero { padding: 3rem 1rem 5rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .event-card { grid-template-columns: 1fr; gap: 1.5rem; margin-top: -2rem; }
+      .event-item { border-left: none; border-top: 2px solid var(--conf-border); padding-left: 0; padding-top: 1rem; }
+      .event-item:first-child { border-top: none; padding-top: 0; }
+      .event-footer { flex-direction: column; gap: 0.8rem; align-items: center; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
     }
   </style>
 </head>
 <body>
 
+  <div class="top-bar"></div>
+
   <div class="hero">
-    <h1>Introduction to Project Management</h1>
-    <p>Bachelor in Computer Science · University of Luxembourg</p>
-    <div class="tagline">Poster Session: AI Technical Survey Workshop</div>
+    <div class="hero-content">
+      <h1>Introduction to Project Management</h1>
+      <p>Bachelor in Computer Science · University of Luxembourg</p>
+      <div class="tagline">Poster Session: AI Technical Survey Workshop</div>
+    </div>
   </div>
 
   <div class="container">
+    
+    <!-- Event Details Panel -->
     <div class="event-card">
       <div class="event-item">
         <label>Final Event Date</label>
         <div>17 Dec 2025</div>
       </div>
       <div class="event-item">
-        <label>Time</label>
+        <label>Time Schedule</label>
         <div>08:30 - 12:00</div>
       </div>
       <div class="event-item">
-        <label>Location</label>
-        <div>Room MSA 4.520 (Mandatory)</div>
+        <label>Venue / Room</label>
+        <div>MSA 4.520 (Mandatory)</div>
       </div>
       <div class="event-item">
-        <label>Amenities</label>
+        <label>On-Site Amenities</label>
         <div class="highlight-badge">☕ Coffee & Desserts</div>
       </div>
       
@@ -230,8 +400,9 @@
       </div>
     </div>
 
+    <!-- Timeline / Schedule -->
     <div class="timeline-section">
-      <div class="section-title">📅 Upcoming Deadlines</div>
+      <div class="section-title">📅 Upcoming Schedule & Deadlines</div>
       <div class="timeline">
         <div class="timeline-item active">
           <span class="t-date">29 Nov</span>
@@ -253,65 +424,71 @@
 
     <!-- REMOVED Topic Registration / Update Section -->
 
-    <div class="card" style="margin-top:2rem;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-        <h3 style="margin:0;">Final Group Assignments</h3>
+    <!-- Group Assignments Table -->
+    <div class="section-title">📋 Registered Groups & Topics</div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Final Group Assignments</h3>
         <!-- Admin can still reset if needed via password -->
         <button id="resetBtn" class="secondary" type="button">Reset All (Admin Only)</button>
       </div>
       
-      <table>
-        <thead>
-          <tr>
-            <th style="width:100px;">Group</th>
-            <th style="width:250px;">Main Topic</th>
-            <th>Specific Subtopic / Title</th>
-            <th style="width:60px;">Admin</th>
-          </tr>
-        </thead>
-        <tbody id="assignmentsBody"></tbody>
-      </table>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:120px;">Group ID</th>
+              <th style="width:280px;">Main Topic</th>
+              <th>Specific Subtopic / Title</th>
+              <th style="width:60px; text-align:center;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="assignmentsBody"></tbody>
+        </table>
+      </div>
       <div id="message" class="message"></div>
     </div>
 
     <!-- GRADING CRITERIA -->
-    <div class="section-title">👥 Grading Criteria & Reference</div>
+    <div class="section-title">⚖️ Evaluation Criteria</div>
+    
+    <div class="grading-info">
+      <strong>Score Breakdown:</strong> The maximum Peer Score is <strong>20 Points</strong>.
+    </div>
+
     <div class="card">
-        <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:1rem; border-radius:8px; margin-bottom:1.5rem; color:#166534;">
-            <strong>Score Breakdown:</strong> The maximum Peer Score is <strong>20 Points</strong>.
-        </div>
         <table>
             <thead>
                 <tr>
                     <th>Review Category</th>
-                    <th style="width:100px;">Max Points</th>
+                    <th style="width:120px;">Max Points</th>
                     <th>Guiding Questions for Reviewers</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><strong>1. Visual Appeal & Layout</strong></td>
-                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td><span class="points-badge">5 pts</span></td>
                     <td class="muted">Is the text legible? Are the diagrams high quality? Is the layout not overcrowded?</td>
                 </tr>
                 <tr>
                     <td><strong>2. Presentation Pitch</strong></td>
-                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td><span class="points-badge">5 pts</span></td>
                     <td class="muted">Did the speaker explain the concept clearly? Was the talk engaging?</td>
                 </tr>
                 <tr>
                     <td><strong>3. Technical Accessibility</strong></td>
-                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td><span class="points-badge">5 pts</span></td>
                     <td class="muted">Could you understand the problem and solution without being an expert?</td>
                 </tr>
                 <tr>
                     <td><strong>4. Q&A Interaction</strong></td>
-                    <td style="font-weight:bold; color:var(--primary);">5 pts</td>
+                    <td><span class="points-badge">5 pts</span></td>
                     <td class="muted">Did the presenters answer questions confidently and correctly?</td>
                 </tr>
-                <tr style="background-color: #f8fafc; border-top: 2px solid #e2e8f0;">
-                    <td style="text-align:right;"><strong>TOTAL</strong></td>
-                    <td style="font-weight:bold; color:#d97706;">20 pts</td>
+                <tr style="background-color: #f8fafc;">
+                    <td style="text-align:right; font-weight:700;">TOTAL SCORE</td>
+                    <td style="font-weight:800; color:#d97706;">20 pts</td>
                     <td></td>
                 </tr>
             </tbody>
@@ -320,6 +497,8 @@
 
     <div class="page-footer">
         Any questions? Contact <a href="mailto:hongyang.li@uni.lu">hongyang.li@uni.lu</a>
+        <br><br>
+        &copy; 2025 University of Luxembourg
     </div>
 
   </div>
@@ -404,6 +583,7 @@
         
         // Create Delete Button
         const delTd = document.createElement("td");
+        delTd.style.textAlign = "center";
         const delBtn = document.createElement("button");
         delBtn.textContent = "×";
         delBtn.className = "delete-btn";
@@ -416,8 +596,8 @@
         if (!displaySub) displaySub = "<em class='muted'>-</em>";
 
         tr.innerHTML = `
-          <td><strong>Group ${a.group}</strong></td>
-          <td>${topic ? topic.label : "Custom"}</td>
+          <td><span style="font-weight:700; color:#334155;">Group ${a.group}</span></td>
+          <td><span style="font-weight:600; color:#2563eb;">${topic ? topic.label : "Custom"}</span></td>
           <td>${displaySub}</td>
         `;
         tr.appendChild(delTd); 
@@ -441,7 +621,7 @@
     function showMsg(text, type) {
       els.msg.textContent = text;
       els.msg.className = `message ${type}`;
-      setTimeout(() => { els.msg.textContent = ""; }, 5000);
+      setTimeout(() => { els.msg.textContent = ""; els.msg.className="message"; }, 5000);
     }
 
     // --- Events --------------------------------------------------------------
