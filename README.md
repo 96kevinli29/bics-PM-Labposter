@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -392,7 +391,7 @@
       </div>
       
       <div class="event-footer">
-        <span>🎤 Each Group Presents 10 mins</span>
+        <span>🎤 Interactive Presentations</span>
         <span>📝 Peer Grading Session</span>
         <span class="award-text">🏆 Best Poster Awards</span>
       </div>
@@ -417,8 +416,11 @@
                 <tr>
                     <td><strong>08:35 - 11:35</strong></td>
                     <td>
-                        <strong>🎤 Group Presentations</strong><br>
-                        <span class="muted" style="font-size:0.8rem;">Groups 1 to 12 • 15 mins per slot (10 min Talk + 5 min Q&A)</span>
+                        <strong>🎤 Poster Exhibition & Grading</strong><br>
+                        <span class="muted" style="font-size:0.8rem;">
+                           Interactive Session: Students explain work & answer Q&A.<br>
+                           <strong>Mandatory:</strong> Peer grading for all groups.
+                        </span>
                     </td>
                     <td class="muted">180 mins</td>
                 </tr>
