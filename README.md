@@ -4,11 +4,10 @@
   <meta charset="UTF-8" />
   <title>Poster Session: AI Technical Survey Workshop · Uni.lu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Import Inter Font for Professional Conference Look -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+   
   <style>
     :root {
       /* Conference Color Palette */
@@ -18,16 +17,16 @@
       --conf-accent: #3b82f6; /* Blue 500 - Tech Blue */
       --conf-secondary: #64748b; /* Slate 500 */
       --conf-border: #e2e8f0;
-      
+       
       --state-success-bg: #f0fdf4;
       --state-success-text: #15803d;
       --state-active-bg: #eff6ff;
       --state-active-border: #3b82f6;
-      
+       
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
       --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-      
+       
       --font-main: 'Inter', system-ui, -apple-system, sans-serif;
     }
     
@@ -374,7 +373,6 @@
 
   <div class="container">
     
-    <!-- Event Details Panel -->
     <div class="event-card">
       <div class="event-item">
         <label>Final Event Date</label>
@@ -400,7 +398,49 @@
       </div>
     </div>
 
-    <!-- Timeline / Schedule -->
+    <div class="section-title">⏱️ Detailed Agenda</div>
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 150px;">Time</th>
+                    <th>Activity</th>
+                    <th style="width: 150px;">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>08:30 - 08:35</strong></td>
+                    <td>👋 Opening & Guidelines</td>
+                    <td class="muted">5 mins</td>
+                </tr>
+                <tr>
+                    <td><strong>08:35 - 11:35</strong></td>
+                    <td>
+                        <strong>🎤 Group Presentations</strong><br>
+                        <span class="muted" style="font-size:0.8rem;">Groups 1 to 12 • 15 mins per slot (10 min Talk + 5 min Q&A)</span>
+                    </td>
+                    <td class="muted">180 mins</td>
+                </tr>
+                <tr>
+                    <td><strong>11:35 - 11:45</strong></td>
+                    <td>📊 Score Calculation</td>
+                    <td class="muted">10 mins</td>
+                </tr>
+                <tr>
+                    <td><strong>11:45 - 11:50</strong></td>
+                    <td>🏆 Awards Ceremony</td>
+                    <td class="muted">5 mins</td>
+                </tr>
+                <tr>
+                    <td><strong>11:50 - 12:00</strong></td>
+                    <td>🔚 Closing & Networking</td>
+                    <td class="muted">10 mins</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="timeline-section">
       <div class="section-title">📅 Upcoming Schedule & Deadlines</div>
       <div class="timeline">
@@ -422,14 +462,10 @@
       </div>
     </div>
 
-    <!-- REMOVED Topic Registration / Update Section -->
-
-    <!-- Group Assignments Table -->
     <div class="section-title">📋 Registered Groups & Topics</div>
     <div class="card">
       <div class="card-header">
         <h3>Final Group Assignments</h3>
-        <!-- Admin can still reset if needed via password -->
         <button id="resetBtn" class="secondary" type="button">Reset All (Admin Only)</button>
       </div>
       
@@ -449,7 +485,6 @@
       <div id="message" class="message"></div>
     </div>
 
-    <!-- GRADING CRITERIA -->
     <div class="section-title">⚖️ Evaluation Criteria</div>
     
     <div class="grading-info">
